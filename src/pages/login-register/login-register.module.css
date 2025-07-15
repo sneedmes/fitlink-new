@@ -1,0 +1,166 @@
+/*.login_container{*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    gap: 20px;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*.tabs{*/
+/*    display: flex;*/
+/*    gap: 30px;*/
+/*    margin-bottom: 40px;*/
+/*}*/
+
+/*.tab_active{*/
+/*    border-bottom: 3px var(--color-active) solid;*/
+/*}*/
+
+/*.tab_active h3{*/
+/*    text-align: center;*/
+/*    font-weight: 700;*/
+/*}*/
+
+/*.tab_default h3{*/
+/*    text-align: center;*/
+/*}*/
+
+/*.input-wrapper {*/
+/*    position: relative;*/
+/*    width: 100%; !* или фиксированная ширина *!*/
+/*}*/
+
+/*.input-wrapper input {*/
+/*    width: 100%;*/
+/*    padding-right: 60px; !* чтобы кнопка не наслаивалась на текст *!*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+/*.input-wrapper button:hover{*/
+/*    cursor: pointer;*/
+/*    opacity: 90%;*/
+/*}*/
+
+
+/* Login & Register Module Styles */
+
+.login_container {
+    width: 100%;
+    max-width: 480px;
+    margin: 3rem auto;
+    background: #f8fafc; /* slate-50 */
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation: slideIn 0.6s ease-out;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    background: #ffffff;
+    padding: 10px;
+}
+
+.tabs button {
+    flex: 1 1 50%;
+    padding: 1rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s;
+}
+
+.tab_default {
+    color: grey; /* slate-900 */
+    font-weight: 500;
+}
+
+.tab_active {
+    background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+    color: black;
+    font-weight: 600;
+}
+
+/* Forms */
+.signin,
+.signup {
+    padding: 2rem 2.5rem;
+}
+
+input,
+select {
+    width: 100%;
+    margin-bottom: 1.25rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0; /* slate-200 */
+    border-radius: 0.75rem;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+    background: #ffffff;
+}
+
+select{
+    padding: 10px;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* Password wrapper */
+.input_wrapper {
+    position: relative;
+}
+
+.input_wrapper input {
+    width: 100%;
+    padding-right: 2.5rem; /* чтобы не налезала иконка */
+}
+
+.input_wrapper button {
+    position: absolute;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+
+/* Error message */
+.content div:first-of-type {
+    color: #dc2626; /* red-600 */
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* Animation */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 540px) {
+    .login_container {
+        margin: 1.5rem 1rem;
+    }
+    .signin,
+    .signup {
+        padding: 1.5rem;
+    }
+}

@@ -1,13 +1,128 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body{
+  background-color: var(--color-back);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1, h2, h3, h4, h5, h6, p{
+  margin: 0;
+  font-family: "Inter", sans-serif;
+}
+
+h1{
+  font-size: 32px;
+  font-weight: 800;
+}
+
+h2{
+  font-size: 24px;
+  font-weight: 800;
+}
+
+h3{
+  font-size: 20px;
+  font-weight: 500;
+}
+
+h4{
+  font-size: 18px;
+  font-weight: 500;
+}
+
+h5{
+  font-size: 16px;
+  font-weight: 500;
+}
+
+h6{
+  font-size: 12px;
+  font-weight: 500;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+button{
+  padding: 0;
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: none;
+  border: none;
+}
+
+:root{
+  --color-main: #00091B;
+  --color-secondary: #A2B6BF;
+  --color-active: #88B6A6;
+  --color-passive: #D9D9D9;
+  --color-back: #EFEFEF;
+
+  --padding-top: 30px;
+  --margin-title: 60px;
+  --gap-form: 50px;
+  --border-radius: 6px;
+}
+
+.title{
+  background-color: white;
+  color: black;
+  text-align: center;
+
+  padding: 20px;
+}
+
+.app{
+  display: grid;
+
+  grid-template-areas:
+  "header title"
+  "header content";
+  grid-template-rows: 80px 1fr;
+  grid-template-columns: 230px 1fr;
+}
+
+.header {
+  grid-area: header;
+}
+.title {
+  grid-area: title;
+}
+.content {
+  grid-area: content;
+
+  margin: 30px 50px;
+  /*height: calc(100vh - 80px);*/
+}
+
+input, select{
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  background-color: var(--color-back);
+  margin: 5px 0 30px 0;
+  height: 40px;
+  font-size: 16px;
+  padding: 0;
+}
+
+input:focus{
+  outline: none;
+}
+
+input:invalid{
+  outline: none;
+  border-bottom: 2px solid var(--color-passive);
+}
+
+label{
+  font-size: 18px;
+  font-weight: 700;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
 }

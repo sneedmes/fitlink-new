@@ -1,0 +1,80 @@
+/* Общие стили для кнопок */
+
+.active,
+.passive_selected,
+.passive,
+.join,
+.notJoined,
+.edit,
+.members,
+.submit {
+    border-radius: var(--border-radius);
+    border: black solid 2px;
+    text-align: center;
+    color: black;
+}
+
+.header:hover,
+.active:hover,
+.passive_selected:hover,
+.passive:hover,
+.join:hover,
+.notJoined:hover,
+.edit:hover,
+.members:hover,
+.submit {
+    cursor: pointer;
+    opacity: 90%;
+}
+
+/* Заголовок */
+.header {
+    color: white;
+}
+
+/* Активная кнопка */
+.active, .submit {
+    width: 250px;
+    height: 40px;
+    border-width: 3px;
+    background-color: var(--color-active);
+}
+
+/* Пассивная кнопка | активная*/
+
+.passive {
+    background-color: var(--color-passive);
+}
+
+.passive_selected {
+    background-color: var(--color-secondary);
+}
+
+/* Участие в событии */
+.joined,
+.notJoined {
+    width: 170px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.joined {
+    background-color: var(--color-active);
+}
+
+.notJoined {
+    background-color: var(--color-passive);
+}
+
+/* Кнопка редактирования */
+.edit {
+    width: 10rem;
+    height: 30px;
+    background-color: var(--color-passive);
+}
+
+/* Кнопка перейти к игроку */
+.members {
+    cursor: pointer;
+    font-size: 16px;
+}

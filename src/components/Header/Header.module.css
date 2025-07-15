@@ -1,0 +1,40 @@
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 230px;
+    height: 720px;
+
+    color: #ffffff;
+    background-color: var(--color-main);
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.logo{
+    margin-bottom: 60px;
+}
+
+.nav_reg, .nav_coach{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 60px;
+    align-items: flex-start;
+}
+
+.nav_reg span{
+    margin-bottom: 300px;
+}
+
+.nav_coach span{
+    margin-top: 200px; /*CHANGE ALL SIZES!*/
+}

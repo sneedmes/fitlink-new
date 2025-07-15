@@ -1,0 +1,22 @@
+.info_main, .info_developers, .info_coach, .info_athlete{
+    padding: 27px 100px 27px 32px;
+    background-color: white;
+    border-radius: var(--border-radius);
+    margin-bottom: 30px;
+}
+
+.info_main h1, .info_developers h1, .info_coach h1, .info_athlete h1{
+    margin-bottom: 35px;
+}
+
+.info_coach li, .info_athlete li{
+    list-style: url("../../assets/materials/list.png");
+    vertical-align: top;
+}
+
+.info_button{
+    display: flex;
+    justify-content: center;
+    height: 90px;
+}
+
