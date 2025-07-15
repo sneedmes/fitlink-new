@@ -27,14 +27,14 @@ export const Button=({type, title, onClick, isActive}:ButtonProps)=>{
             {type === 'passive' &&
                 <button
                     onClick={onClick}
-                    className={isActive ? `${style.passive_selected} ${style.passive}` : `${style.button_passive}`}>
+                    className={isActive ? `${style.passive_selected} ${style.passive}` : `${style.passive}`}>
                     <h4>{title}</h4>
                 </button>
             }
             {type === 'join' &&
                 <button
                     onClick={onClick}
-                    className={isActive ? `${style.join}` : `${style.notJoined}`}>
+                    className={isActive ? `${style.joined}` : `${style.notJoined}`}>
                     <h5>{title}</h5>
                 </button>
             }

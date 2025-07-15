@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from '../../components/Header/Header';
 import Title from "../../components/Title/Title";
-import { EventsTypes } from '../../types/types';
+import {EventsTypes} from '../../types/types';
 import style from "./Events.module.css";
-import { Button } from "../../components/Button/Button";
-import { useNavigate } from "react-router-dom";
+import {Button} from "../../components/Button/Button";
+import {useNavigate} from "react-router-dom";
 
 const Events = () => {
     const navigate = useNavigate();
@@ -44,7 +44,7 @@ const Events = () => {
     return (
         <>
             <Header/>
-            <Title title={'События'} />
+            <Title title={'События'}/>
             <div className="content">
                 <div className={style.events}>
                     <div className={style.events_container}>
@@ -58,19 +58,24 @@ const Events = () => {
                                             <h3>{event.desc}</h3>
                                             <h4>{event.date}</h4>
                                             <h4>{event.time}</h4>
+                                            <h6>
+                                                <i>{event.isPrivate ? 'Приватное (только команда)' : 'Публичное (для всех)'}</i>
+                                            </h6>
                                         </div>
                                         <div className={style.members}>
+                                            {event.userId === currentUser.id &&
+                                                <Button
+                                                    title="Редактировать"
+                                                    onClick={() => navigate(`/edit-event/${event.id}`)}
+                                                    type="edit"
+                                                    isActive={true}
+                                                />
+                                            }
                                             <Button
                                                 title={hasJoined ? 'Отменить участие' : 'Принять участие'}
-                                                type={'passive'}
+                                                type={'join'}
                                                 onClick={() => handleParticipationToggle(event.id)}
                                                 isActive={!hasJoined}
-                                            />
-                                            <Button
-                                                title="Редактировать"
-                                                onClick={() => navigate(`/edit-event/${event.id}`)}
-                                                type="edit"
-                                                isActive={true}
                                             />
                                             <p>Участников: {event.members}</p>
                                         </div>
@@ -78,7 +83,7 @@ const Events = () => {
                                 );
                             })
                         ) : (
-                            <p>У тебя пока нет событий. Давай создадим первое!</p>
+                            <p>Нет доступных событий.</p>
                         )}
                     </div>
 

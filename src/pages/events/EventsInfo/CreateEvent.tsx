@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import style from '../Events.module.css';
 import Header from '../../../components/Header/Header';
-import { useNavigate } from 'react-router-dom';
-import { EventsTypes } from '../../../types/types';
+import {useNavigate} from 'react-router-dom';
+import {EventsTypes} from '../../../types/types';
 import {Button} from "../../../components/Button/Button";
 import Title from "../../../components/Title/Title";
 
@@ -11,10 +11,10 @@ const CreateEvent = () => {
     const [desc, setDesc] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
+    const [isPrivate, setIsPrivate] = useState(true);
     const navigate = useNavigate();
     const currentUser = JSON.parse(localStorage.getItem("myProject_currentUser") || "null");
     const currentUserId = currentUser?.id;
-    console.log(currentUserId)
 
     const handleAdd = () => {
         if (!title || !desc || !date) {
@@ -31,6 +31,7 @@ const CreateEvent = () => {
             time,
             members: 0,
             joinedUsers: [],
+            isPrivate,
         };
 
         const stored = localStorage.getItem('myProject_events'); // поправил ключ
@@ -40,7 +41,6 @@ const CreateEvent = () => {
 
         navigate('/events');
     };
-
 
 
     return (
@@ -78,6 +78,24 @@ const CreateEvent = () => {
                         onChange={(e) => setTime(e.target.value)}
                         placeholder="Время (необязательно)"
                     />
+                    <div className={style.privacy_toggle}>
+                        <div>
+                            <p className={style.label_text}>
+                                {isPrivate ? 'Приватное (только команда)' : 'Публичное (для всех)'}
+                            </p>
+                        </div>
+                        <div className={style.switch_container}>
+                            <label className={style.switch}>
+                                <input
+                                    type="checkbox"
+                                    checked={isPrivate}
+                                    onChange={() => setIsPrivate(!isPrivate)}
+                                />
+                                <span className={style.slider}></span>
+                            </label>
+                        </div>
+                    </div>
+
                     <Button
                         onClick={handleAdd}
                         title={'Добавить'}

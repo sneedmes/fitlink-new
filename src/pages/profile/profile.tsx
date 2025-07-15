@@ -1,14 +1,16 @@
-import React, {useState, ChangeEvent, KeyboardEvent} from "react";
-import s from "./profile.module.scss";
+import React, {useState, ChangeEvent} from "react";
+import style from "./profile.module.css";
 import Header from "../../components/Header/Header";
 import Title from "../../components/Title/Title";
+import Toast from "../../components/Toast/Toast";
+import {Button} from "../../components/Button/Button";
 
 export const Profile = () => {
     const [currentUser, setCurrentUser] = useState(
         JSON.parse(localStorage.getItem("myProject_currentUser") || "{}")
     );
-    const [editField, setEditField] = useState<string | null>(null);
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
+    const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
     const handlePhotoChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
@@ -25,7 +27,7 @@ export const Profile = () => {
 
     const validateField = (field: string, value: string) => {
         if (value.trim() === "") return "Поле не может быть пустым.";
-        if (field === "email" && !/^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(value)) {
+        if (field === "mail" && !/^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(value)) {
             return "Введите корректный адрес почты.";
         }
         return "";
@@ -46,82 +48,111 @@ export const Profile = () => {
         localStorage.setItem("myProject_currentUser", JSON.stringify(updatedUser));
     };
 
-    const handleBlur = (field: string) => {
-        if (errors[field]) return;
+    const handleSave = () => {
+        const hasError = Object.values(errors).some((e) => e);
+        if (hasError) {
+            setToast({message: "Заполните все поля", type: "error"});
+            return;
+        }
+
         updateUserInLocalStorage(currentUser);
-        setEditField(null);
-    };
+        setToast({message: "Профиль успешно сохранён!", type: "success"});
 
-    const handleKeyDown = (field: string, event: KeyboardEvent) => {
-        if (event.key === "Enter" && !errors[field]) handleBlur(field);
-    };
-
-    const handleFocus = (field: string) => {
-        if (editField && errors[editField]) return;
-        setEditField(field);
+        setTimeout(() => setToast(null), 3000);
     };
 
     if (!currentUser) {
-        return <p className={s.error}>Данные пользователя недоступны.</p>;
+        return <p className={style.error}>Данные пользователя недоступны.</p>;
     }
 
     return (
         <>
             <Header/>
-            <Title title={'События'}/>
-            <div className="content">
-                <div className={s.profile}>
-                    <h2>Личный кабинет</h2>
-                    <div className={s.profileInfo}>
-                        <div className={s.avatarContainer}>
-                            <img
-                                src={currentUser.photo || "/default-avatar.png"}
-                                alt="Аватар"
-                                className={s.avatar}
-                            />
-                            <label className={s.changePhotoBtn}>
-                                📷
+            <Title title="Профиль"/>
+            <div className="content" style={{position: "relative"}}>
+
+                <div className={style.profile}>
+                    <h3>Данные пользователя</h3>
+                    <form onSubmit={(e) => e.preventDefault()}>
+                        <div className={style.upper_container}>
+                            <div className={style.upper_inputs}>
+                                <label htmlFor="name">Имя</label>
                                 <input
-                                    type="file"
-                                    accept="image/png, image/jpeg"
-                                    hidden
-                                    onChange={handlePhotoChange}
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={currentUser.name || ""}
+                                    onChange={(e) => handleFieldChange("name", e.target.value)}
                                 />
-                            </label>
+
+                                <label htmlFor="surname">Фамилия</label>
+                                <input
+                                    type="text"
+                                    id="surname"
+                                    name="surname"
+                                    value={currentUser.surname || ""}
+                                    onChange={(e) => handleFieldChange("surname", e.target.value)}
+                                />
+
+                                <label htmlFor="fatherName">Отчество (необязательно)</label>
+                                <input
+                                    type="text"
+                                    id="fatherName"
+                                    name="fatherName"
+                                    value={currentUser.fatherName || ""}
+                                    onChange={(e) => handleFieldChange("fatherName", e.target.value)}
+                                />
+                            </div>
+
+                            <div>
+                                <img
+                                    src={currentUser.photo || "/default-avatar.png"}
+                                    alt="Аватар"
+                                />
+                                <label htmlFor="photo-upload" title="Изменить фото">
+                                    <input
+                                        type="file"
+                                        id="photo-upload"
+                                        accept="image/png, image/jpeg"
+                                        style={{display: 'none'}}
+                                        onChange={handlePhotoChange}
+                                    />
+                                    <h6>Изменить фото</h6>
+                                </label>
+                            </div>
                         </div>
-                        <div className={s.details}>
-                            {["lastName", "firstName", "middleName", "email"].map((field) => (
-                                <div key={field} className={s.detailItem}>
-                                    {editField === field ? (
-                                        <div>
-                                            <input
-                                                type="text"
-                                                value={currentUser[field] || ""}
-                                                onChange={(e) => handleFieldChange(field, e.target.value)}
-                                                onBlur={() => handleBlur(field)}
-                                                onKeyDown={(e) => handleKeyDown(field, e)}
-                                                className={errors[field] ? s.inputError : ""}
-                                            />
-                                            {errors[field] && <span className={s.errorText}>{errors[field]}</span>}
-                                        </div>
-                                    ) : (
-                                        <p
-                                            onClick={() => handleFocus(field)}
-                                            className={s.fieldText}
-                                        >
-                                            {field === "lastName"
-                                                ? `Фамилия: ${currentUser.lastName}`
-                                                : field === "firstName"
-                                                    ? `Имя: ${currentUser.firstName}`
-                                                    : field === "middleName"
-                                                        ? `Отчество: ${currentUser.middleName || "Нет данных"}`
-                                                        : `Почта: ${currentUser.email}`}
-                                        </p>
-                                    )}
-                                </div>
-                            ))}
+
+
+                        <label htmlFor="dateOfBirth">Дата рождения</label>
+                        <input
+                            type="date"
+                            id="dateOfBirth"
+                            name="dateOfBirth"
+                            value={currentUser.dateOfBirth || ""}
+                            onChange={(e) => handleFieldChange("dateOfBirth", e.target.value)}
+                        />
+
+                        <div className={style.form_span}>
+                            <div className={style.form_input}>
+                                <label htmlFor="mail">Почта</label>
+                                <input
+                                    type="email"
+                                    id="mail"
+                                    name="mail"
+                                    value={currentUser.email || ""}
+                                    onChange={(e) => handleFieldChange("mail", e.target.value)}
+                                />
+                            </div>
+
+                            <Button
+                                onClick={handleSave}
+                                title="Сохранить"
+                                type="edit"
+                                isActive={true}
+                            />
+                            {toast && <Toast message={toast.message} type={toast.type}/>}
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </>

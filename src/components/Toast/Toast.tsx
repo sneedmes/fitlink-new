@@ -10,7 +10,7 @@ type ToastProps = {
 const Toast = ({ message, type = 'success' }: ToastProps) => {
     return (
         <div className={`${style.toast} ${type === 'error' ? style.error : ''}`}>
-            {message}
+            <p>{message}</p>
         </div>
     );
 };

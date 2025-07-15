@@ -120,6 +120,7 @@ input:invalid{
 label{
   font-size: 18px;
   font-weight: 700;
+  font-family: "Inter", sans-serif;
 }
 
 form{

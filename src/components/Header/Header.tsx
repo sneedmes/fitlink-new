@@ -78,7 +78,7 @@ const Header = () => {
                     <div className={`${style.nav_coach}`}>
                         <Button type={'header'}
                                 title={"События"}
-                                onClick={() => navigate('/')}
+                                onClick={() => navigate('/events')}
                                 isActive={false}/>
                         <Button type={'header'}
                                 title={"Статистика"}

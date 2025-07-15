@@ -115,10 +115,9 @@ export const LoginRegister = () => {
                         </button>
                     </div>
 
-                    {error && <div>{error}</div>}
-
                     {tabIndex === 0 ? (
                         <div className={style.signin}>
+                            {error && <div>{error}</div>}
                             <form
                                 onSubmit={e => {
                                     e.preventDefault();
@@ -160,6 +159,7 @@ export const LoginRegister = () => {
                         </div>
                     ) : (
                         <div className={style.signup}>
+                            {error && <div>{error}</div>}
                             <form
                                 onSubmit={e => {
                                     e.preventDefault();

@@ -10,7 +10,7 @@ export interface User {
     team?: Team // Команда пользователя
     statistics?: Statistic[] // Статистика пользователя
     events?: EventsTypes[] // Созданные события
-    workouts?: Workout[];
+    workouts?: WorkoutTypes[];
 }
 
 export interface Statistic {
@@ -33,13 +33,15 @@ export interface EventsTypes {
     time: string; // Время
     date: string; // Дата
     members: number; // Количество участников
-    joinedUsers: number[];
+    joinedUsers: number[]; // массив Id участников
+    isPrivate: boolean; // Приватность события
 }
 
-export interface Workout {
+export interface WorkoutTypes {
+    userId: number; // ID пользователя, создавшего тренировку
     id: number; // Уникальный ID тренировки
     title: string; // Название тренировки
-    privat: boolean; // Тренировка для команды или приватная
+    isPrivate: boolean; // Тренировка для команды или приватная
     items: ExerciseItem[]; // Массив упражнений с картинками
 }
 
@@ -52,5 +54,10 @@ export type Team = {
     id: number; // Уникальный ID команды
     name: string; // Название команды
     img?: string; // Логотип команды
+    schedule: {
+        label: string
+        date: string
+        time: string
+    }; // Расписание тренировок
     members: User[]; // Массив пользователей в команде
 };

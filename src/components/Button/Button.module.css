@@ -3,7 +3,7 @@
 .active,
 .passive_selected,
 .passive,
-.join,
+.joined,
 .notJoined,
 .edit,
 .members,
@@ -18,7 +18,7 @@
 .active:hover,
 .passive_selected:hover,
 .passive:hover,
-.join:hover,
+.joined:hover,
 .notJoined:hover,
 .edit:hover,
 .members:hover,
@@ -44,6 +44,7 @@
 
 .passive {
     background-color: var(--color-passive);
+    padding: 5px;
 }
 
 .passive_selected {
