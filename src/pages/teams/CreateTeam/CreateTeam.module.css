@@ -1,0 +1,136 @@
+.create_team_container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+h3 {
+    margin-bottom: 24px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+input[type="text"] {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border 0.2s;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+.add_input {
+    margin-bottom: 4px;
+}
+
+.search_list {
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    list-style: none;
+    padding: 4px;
+    margin: 0;
+}
+
+.search_list li {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.search_list li:hover {
+    background-color: #e6f0ff;
+}
+
+.preview_members {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.preview_members h4 {
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.preview_members ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.member_chip {
+    background: #e6f0ff;
+    color: #333;
+    padding: 6px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+}
+
+.remove_button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.remove_button:hover {
+    color: #d00;
+}
+
+.load_img {
+    display: inline-block;
+    cursor: pointer;
+    transition: color 0.2s;
+    color: var(--color-main);
+}
+
+.load_img:hover {
+    opacity: 90%;
+}
+
+.img_input {
+    display: none;
+}
+
+.logo_preview {
+    margin-top: -10px;
+}
+
+.logo_preview p {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.logo_image {
+    max-height: 150px;
+    border-radius: 12px;
+    border: 2px solid #ddd;
+    padding: 4px;
+}

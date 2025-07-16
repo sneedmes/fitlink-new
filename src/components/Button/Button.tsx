@@ -60,6 +60,13 @@ export const Button=({type, title, onClick, isActive}:ButtonProps)=>{
                     <h4>{title}</h4>
                 </button>
             }
+            {type === 'player' &&
+                <button
+                    onClick={onClick}
+                    className={style.player}>
+                    <p>{title}</p>
+                </button>
+            }
         </>
     )
 }

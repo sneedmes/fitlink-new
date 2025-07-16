@@ -9,6 +9,8 @@ import WorkoutDetails from "./pages/workouts/WorkoutInfo/WorkoutDetail";
 import Workout from "./pages/workouts/Workout";
 import CreateWorkout from "./pages/workouts/WorkoutInfo/CreateWorkout";
 import EditWorkout from "./pages/workouts/WorkoutInfo/EditWorkout";
+import Teams from "./pages/teams/Teams";
+import CreateTeam from "./pages/teams/CreateTeam/CreateTeam";
 
 function App() {
     return (
@@ -18,9 +20,11 @@ function App() {
                 <Route path="/auth" element={<LoginRegister/>}/>
 
                 <Route path="/events" element={<Events/>}/>
-
                 <Route path="/CreateEvent" element={<CreateEvent />}/>
                 <Route path="/edit-event/:id" element={<EditEvent />}/>
+
+                <Route path="/team/" element={<Teams />}/>
+                <Route path="/create-team/" element={<CreateTeam />}/>
 
                 <Route path="/profile" element={<Profile/>} />
 

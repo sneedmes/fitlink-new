@@ -7,7 +7,7 @@ export interface User {
     dateOfBirth: string; // Дата рождения
     email: string; // Почта пользователя
     role: 'Тренер' | 'Спортсмен'; // Роль пользователя
-    team?: Team // Команда пользователя
+    team?: TeamType[] // Команда пользователя
     statistics?: Statistic[] // Статистика пользователя
     events?: EventsTypes[] // Созданные события
     workouts?: WorkoutTypes[];
@@ -50,14 +50,16 @@ export interface ExerciseItem {
     image: string; // рисунок упражнения
 }
 
-export type Team = {
+export type TeamType = {
+    userId: number; // ID пользователя, создавшего команду
     id: number; // Уникальный ID команды
     name: string; // Название команды
     img?: string; // Логотип команды
-    schedule: {
+    schedule?: {
         label: string
         date: string
         time: string
     }; // Расписание тренировок
     members: User[]; // Массив пользователей в команде
+    requests?: User[]; // Запрос на вступление
 };

@@ -148,6 +148,7 @@
     border-radius: 6px;
     cursor: pointer;
     width: fit-content;
+    font-weight: 500;
 }
 
 .image_upload input {

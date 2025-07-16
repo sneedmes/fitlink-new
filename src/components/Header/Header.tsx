@@ -57,7 +57,7 @@ const Header = () => {
                                 isActive={false}/>
                         <Button type={'header'}
                                 title={"Команда"}
-                                onClick={() => navigate('/teams')}
+                                onClick={() => navigate('/team')}
                                 isActive={false}/>
                         <Button type={'header'}
                                 title={"Тренировки"}
@@ -86,7 +86,7 @@ const Header = () => {
                                 isActive={false}/>
                         <Button type={'header'}
                                 title={"Команда"}
-                                onClick={() => navigate('/teams')}
+                                onClick={() => navigate('/team')}
                                 isActive={false}/>
                         <Button type={'header'}
                                 title={"Тренировки"}

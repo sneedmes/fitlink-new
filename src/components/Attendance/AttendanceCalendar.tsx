@@ -3,13 +3,13 @@ import { getDaysInMonth, format } from 'date-fns';
 import clsx from 'clsx';
 import styles from './AttendanceCalendar.module.css';
 import { ru } from 'date-fns/locale';
-import { User, Team } from '../../types/types';
+import { User, TeamType } from '../../types/types';
 
 type Props = {
     position: 'Тренер' | 'Спортсмен';
     player: User[];
     teamId: number;
-    setTeams: React.Dispatch<React.SetStateAction<Team[]>>;
+    setTeams: React.Dispatch<React.SetStateAction<TeamType[]>>;
 };
 
 export const AttendanceCalendar: React.FC<Props> = ({
@@ -30,7 +30,7 @@ export const AttendanceCalendar: React.FC<Props> = ({
         playerId: number,
         updatedAttendance: { [date: string]: boolean }
     ) => {
-        setTeams((prev: Team[]) =>
+        setTeams((prev: TeamType[]) =>
             prev.map(team =>
                 team.id !== teamId
                     ? team
