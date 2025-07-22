@@ -1,8 +1,7 @@
 import React from 'react';
-import styles from '../PlayerProfile.module.css';
+import styles from './StatCard.module.css';
 
 export type StatCardProps = {
-    position: string;
     title: string;
     total: number;
     items: { label: string; value: number | string }[];
@@ -17,7 +16,6 @@ export type StatCardProps = {
 };
 
 const StatCard = ({
-                      position,
                       title,
                       total,
                       items,
@@ -33,11 +31,17 @@ const StatCard = ({
     return (
         <div className={styles.statCard}>
             <h3 className={styles.statTitle}>{title}</h3>
+
             <div className={styles.statTotal}>
                 <span>Всего</span>
                 <span className={styles.statTotalValue}>{total}</span>
             </div>
+
             <div className={styles.statItems}>
+                {items.length === 0 && (
+                    <p className={styles.statEmpty}>Нет записей</p>
+                )}
+
                 {items.map((item, index) => (
                     <div key={index} className={styles.statItem}>
                         <span className={styles.statLabel}>{item.label}</span>
@@ -46,24 +50,28 @@ const StatCard = ({
                             <span className={styles.statValue}>{item.value}</span>
                         )}
 
-                        {(onIncrement && onDecrement && position === 'coach') && (
+                        {(onIncrement || onDecrement) && (
                             <div className={styles.statActions}>
-                                <button
-                                    className={styles.statButton}
-                                    onClick={() => onDecrement(index)}
-                                >
-                                    –
-                                </button>
-                                <button
-                                    className={styles.statButton}
-                                    onClick={() => onIncrement(index)}
-                                >
-                                    ✚
-                                </button>
+                                {onDecrement && (
+                                    <button
+                                        className={styles.statButton}
+                                        onClick={() => onDecrement(index)}
+                                    >
+                                        –
+                                    </button>
+                                )}
+                                {onIncrement && (
+                                    <button
+                                        className={styles.statButton}
+                                        onClick={() => onIncrement(index)}
+                                    >
+                                        ✚
+                                    </button>
+                                )}
                             </div>
                         )}
 
-                        {(showControls && position === 'coach') && (
+                        {showControls && (
                             <div className={styles.statControls}>
                                 {onEdit && (
                                     <button
@@ -87,7 +95,7 @@ const StatCard = ({
                 ))}
             </div>
 
-            {onAdd && addLabel && position === 'coach' && (
+            {onAdd && addLabel && (
                 <button className={styles.addButton} onClick={onAdd}>
                     {addLabel}
                 </button>

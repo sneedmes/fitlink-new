@@ -7,7 +7,6 @@ import Title from "../../components/Title/Title";
 import {WorkoutTypes} from "../../types/types";
 
 const Workout = () => {
-    // const [open, setOpen] = useState(false)
     const navigate = useNavigate();
     const currentUser = JSON.parse(localStorage.getItem("myProject_currentUser") || "{}")
     const [workouts, setWorkouts] = useState<WorkoutTypes[]>([]);
@@ -27,13 +26,7 @@ const Workout = () => {
             <Header/>
             <Title title={'Тренировки'}/>
             <div className='content'>
-                {/*<Button*/}
-                {/*    type={'passive'}*/}
-                {/*    title={'Расписание'}*/}
-                {/*    onClick={() => setOpen(true)}*/}
-                {/*    isActive={false}*/}
-                {/*/>*/}
-                {/*<ScheduleModal isOpen={open} onClose={() => setOpen(false)}/>*/}
+
                 <Button
                     type={'active'}
                     title={'Создать тренировку'}

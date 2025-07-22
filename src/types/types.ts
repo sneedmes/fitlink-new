@@ -8,19 +8,19 @@ export interface User {
     email: string; // Почта пользователя
     role: 'Тренер' | 'Спортсмен'; // Роль пользователя
     team?: TeamType[] // Команда пользователя
-    statistics?: Statistic[] // Статистика пользователя
+    statistics?: Statistic // Статистика пользователя
     events?: EventsTypes[] // Созданные события
     workouts?: WorkoutTypes[];
 }
 
 export interface Statistic {
-    goals: number,
-    assists: number,
-    redCards: number,
-    yellowCards: number,
-    missedBalls: number,
-    games: number;
-    attendance: {
+    goals?: number,
+    assists?: number,
+    redCards?: number,
+    yellowCards?: number,
+    missedBalls?: number,
+    games?: number;
+    attendance?: {
         [date: string]: boolean
     }; // ключ — строка в формате 'YYYY-MM-DD', значение — был ли игрок в этот день
 }
@@ -55,11 +55,14 @@ export type TeamType = {
     id: number; // Уникальный ID команды
     name: string; // Название команды
     img?: string; // Логотип команды
-    schedule?: {
-        label: string
-        date: string
-        time: string
-    }; // Расписание тренировок
+    schedule?:
+        DayData[]// Расписание тренировок
     members: User[]; // Массив пользователей в команде
     requests?: User[]; // Запрос на вступление
 };
+
+export interface DayData {
+    label: string
+    date: string
+    time: string
+}

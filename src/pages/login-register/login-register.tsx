@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../context/auth-context";
 import Header from "../../components/Header/Header";
@@ -6,6 +6,7 @@ import Title from "../../components/Title/Title";
 import style from './login-register.module.css'
 import {Button} from "../../components/Button/Button";
 import { Eye, EyeOff } from "lucide-react";
+import defaultPhoto from "../../assets/default-profile-photo.png";
 
 export const LoginRegister = () => {
     const [tabIndex, setTabIndex] = useState(0);
@@ -23,15 +24,6 @@ export const LoginRegister = () => {
     const [fatherName, setFatherName] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
     const [role, setRole] = useState<"Тренер" | "Спортсмен">("Спортсмен");
-    const [teamId, setTeamId] = useState<number | null>(null);
-
-    const [teams, setTeams] = useState<{ id: number; name: string }[]>([]);
-
-    useEffect(() => {
-        const savedTeams = JSON.parse(localStorage.getItem("myProject_teams") || "[]");
-        setTeams(savedTeams);
-        if (savedTeams.length) setTeamId(savedTeams[0].id);
-    }, []);
 
     const handleTabChange = (index: number) => {
         setTabIndex(index);
@@ -77,19 +69,17 @@ export const LoginRegister = () => {
             return;
         }
 
-        const userTeam = teams.find(t => t.id === teamId);
-
         const newUser = {
             id: Date.now(),
             name: firstName,
             surname: lastName,
             fatherName: fatherName.trim() ? fatherName : undefined,
-            photo: "",
+            photo: defaultPhoto,
             dateOfBirth,
             email,
             password,
             role,
-            team: userTeam ? [userTeam] : [],
+            team: [],
         };
 
         localStorage.setItem("myProject_users", JSON.stringify([...users, newUser]));
@@ -202,20 +192,7 @@ export const LoginRegister = () => {
                                     <option value="Тренер">Тренер</option>
                                     <option value="Спортсмен">Спортсмен</option>
                                 </select>
-                                <select
-                                    value={teamId ?? ""}
-                                    onChange={e => {
-                                        const value = e.target.value;
-                                        setTeamId(value === "" ? null : Number(value));
-                                    }}
-                                >
-                                    <option value="">Выберите команду</option>
-                                    {teams.map(team => (
-                                        <option key={team.id} value={team.id}>
-                                            {team.name}
-                                        </option>
-                                    ))}
-                                </select>
+
                                 <div className={style.input_wrapper}>
                                     <input
                                         type={showPassword ? "text" : "password"}

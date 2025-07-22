@@ -64,7 +64,7 @@ export const Button=({type, title, onClick, isActive}:ButtonProps)=>{
                 <button
                     onClick={onClick}
                     className={style.player}>
-                    <p>{title}</p>
+                    <h5>{title}</h5>
                 </button>
             }
         </>

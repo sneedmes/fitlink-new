@@ -94,7 +94,7 @@ button{
   grid-area: content;
 
   margin: 30px 50px;
-  /*height: calc(100vh - 80px);*/
+  /*height: calc(100vh - 150px);*/
 }
 
 input, select{

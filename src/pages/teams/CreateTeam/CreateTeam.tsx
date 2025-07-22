@@ -20,7 +20,10 @@ const CreateTeam = () => {
     useEffect(() => {
         const users = JSON.parse(localStorage.getItem('myProject_users') || '[]');
         const current = JSON.parse(localStorage.getItem('myProject_currentUser') || '{}');
-        const filtered = users.filter((user: User) => user.id !== current.id);
+
+        const filtered = users.filter((user: User) =>
+            user.id !== current.id && (!user.team || user.team.length === 0)
+        );
 
         setCurrentUser(current);
         setAllUsers(filtered);
@@ -60,26 +63,50 @@ const CreateTeam = () => {
     };
 
     const handleRemoveMember = (id: number) => {
-        setSelectedMembers(selectedMembers.filter(m => m.id !== id));
+
     };
 
-    const handleSubmit = () => {
-        if (!currentUser) return;
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!currentUser || !teamName.trim()) return;
 
+        const newTeamId = Date.now();
+
+        // Создаём новую команду
         const newTeam = {
-            id: Date.now(),
-            userId: currentUser.id, // Устанавливаем userId создателя
+            id: newTeamId,
+            userId: currentUser.id,
             name: teamName,
             img: logoData,
-            members: [currentUser, ...selectedMembers], // Добавляем себя в участники
+            members: [currentUser, ...selectedMembers],
         };
 
-        const stored = JSON.parse(localStorage.getItem('myProject_teams') || '[]');
-        localStorage.setItem('myProject_teams', JSON.stringify([newTeam, ...stored]));
+        // Обновляем список команд
+        const storedTeams = JSON.parse(localStorage.getItem('myProject_teams') || '[]');
+        localStorage.setItem('myProject_teams', JSON.stringify([newTeam, ...storedTeams]));
+
+        // Обновляем пользователей (назначаем команде участников)
+        const updatedUsers = allUsers.map(user => {
+            if (selectedMembers.find(m => m.id === user.id)) {
+                const updatedTeams = user.team ? [...user.team, newTeam] : [newTeam];
+                return { ...user, team: updatedTeams };
+            }
+            return user;
+        });
+
+        // Обновляем текущего пользователя (тоже добавляем команду)
+        const updatedCurrentUser = {
+            ...currentUser,
+            team: currentUser.team ? [...currentUser.team, newTeam] : [newTeam],
+        };
+
+        // Сохраняем всё в localStorage
+        const allUsersWithCurrent = [...updatedUsers, updatedCurrentUser];
+        localStorage.setItem('myProject_users', JSON.stringify(allUsersWithCurrent));
+        localStorage.setItem('myProject_currentUser', JSON.stringify(updatedCurrentUser));
 
         navigate('/team');
     };
-
 
     return (
         <>
@@ -87,7 +114,7 @@ const CreateTeam = () => {
             <Title title={'Создать команду'} />
             <div className='content'>
                 <div className={style.create_team_container}>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <label htmlFor="name">Название команды</label>
                         <input
                             type="text"
@@ -160,7 +187,7 @@ const CreateTeam = () => {
                             type="active"
                             title={'Создать команду'}
                             isActive={true}
-                            onClick={handleSubmit}
+                            onClick={()=>null}
                         />
                     </form>
                 </div>
