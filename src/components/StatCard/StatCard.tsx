@@ -4,7 +4,7 @@ import styles from './StatCard.module.css';
 export type StatCardProps = {
     title: string;
     total: number;
-    items: { label: string; value: number | string }[];
+    items: { label: string; value?: number | string }[];
     onAdd?: () => void;
     onEdit?: (index: number) => void;
     onDelete?: (index: number) => void;
@@ -33,70 +33,78 @@ const StatCard = ({
             <h3 className={styles.statTitle}>{title}</h3>
 
             <div className={styles.statTotal}>
-                <span>Всего</span>
-                <span className={styles.statTotalValue}>{total}</span>
+                <p>Всего</p>
+                <p className={styles.statTotalValue}>{total}</p>
             </div>
 
             <div className={styles.statItems}>
-                {items.length === 0 && (
+                {items.length === 0 ? (
                     <p className={styles.statEmpty}>Нет записей</p>
+                ) : (
+                    items.map((item, index) => (
+                        <div key={index} className={styles.statItem}>
+                            <p className={styles.statLabel}>{item.label}</p>
+
+                            {showValue && (
+                                <p className={styles.statValue}>{item.value}</p>
+                            )}
+
+                            {(onIncrement || onDecrement) && (
+                                <div className={styles.statActions}>
+                                    {onDecrement && (
+                                        <button
+                                            className={styles.statButton}
+                                            aria-label={`Уменьшить значение ${item.label}`}
+                                            onClick={() => onDecrement(index)}
+                                            type="button"
+                                        >
+                                            –
+                                        </button>
+                                    )}
+                                    {onIncrement && (
+                                        <button
+                                            className={styles.statButton}
+                                            aria-label={`Увеличить значение ${item.label}`}
+                                            onClick={() => onIncrement(index)}
+                                            type="button"
+                                        >
+                                            ✚
+                                        </button>
+                                    )}
+                                </div>
+                            )}
+
+                            {showControls && (
+                                <div className={styles.statControls}>
+                                    {onEdit && (
+                                        <button
+                                            className={styles.statButton}
+                                            aria-label={`Редактировать ${item.label}`}
+                                            onClick={() => onEdit(index)}
+                                            type="button"
+                                        >
+                                            🖉
+                                        </button>
+                                    )}
+                                    {onDelete && (
+                                        <button
+                                            className={styles.statButton}
+                                            aria-label={`Удалить ${item.label}`}
+                                            onClick={() => onDelete(index)}
+                                            type="button"
+                                        >
+                                            ✖
+                                        </button>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    ))
                 )}
-
-                {items.map((item, index) => (
-                    <div key={index} className={styles.statItem}>
-                        <span className={styles.statLabel}>{item.label}</span>
-
-                        {showValue && (
-                            <span className={styles.statValue}>{item.value}</span>
-                        )}
-
-                        {(onIncrement || onDecrement) && (
-                            <div className={styles.statActions}>
-                                {onDecrement && (
-                                    <button
-                                        className={styles.statButton}
-                                        onClick={() => onDecrement(index)}
-                                    >
-                                        –
-                                    </button>
-                                )}
-                                {onIncrement && (
-                                    <button
-                                        className={styles.statButton}
-                                        onClick={() => onIncrement(index)}
-                                    >
-                                        ✚
-                                    </button>
-                                )}
-                            </div>
-                        )}
-
-                        {showControls && (
-                            <div className={styles.statControls}>
-                                {onEdit && (
-                                    <button
-                                        className={styles.statButton}
-                                        onClick={() => onEdit(index)}
-                                    >
-                                        🖉
-                                    </button>
-                                )}
-                                {onDelete && (
-                                    <button
-                                        className={styles.statButton}
-                                        onClick={() => onDelete(index)}
-                                    >
-                                        ✖
-                                    </button>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                ))}
             </div>
 
             {onAdd && addLabel && (
-                <button className={styles.addButton} onClick={onAdd}>
+                <button className={styles.addButton} onClick={onAdd} type="button">
                     {addLabel}
                 </button>
             )}

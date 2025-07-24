@@ -1,9 +1,13 @@
 .statCard {
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 16px;
     margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 300px; /* фиксированная высота карточки */
+    border: 1px solid #ccc;
 }
 
 .statTotal {
@@ -16,6 +20,8 @@
 
 .statItems {
     margin: 8px 0;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .statItem {
@@ -24,6 +30,9 @@
     grid-template-areas: "label value actions";
     align-items: center;
     padding: 6px 0;
+    flex-grow: 1;       /* занимает все свободное место */
+    overflow-y: auto;   /* прокрутка при переполнении */
+    margin: 8px 0;
 }
 
 .statLabel {
@@ -51,6 +60,7 @@
 
 .statButton{
     font-size: 20px;
+    cursor: pointer;
 }
 
 .statControls{
@@ -70,13 +80,7 @@
 
 .addButton:hover {
     background-color: #e0e0e0;
-}
-
-.statCardsContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 16px;
-    margin-top: 16px;
+    flex-shrink: 0;
 }
 
 .itemButtons {

@@ -82,7 +82,7 @@ const Header = () => {
                                 isActive={false}/>
                         <Button type={'header'}
                                 title={"Статистика"}
-                                onClick={() => navigate(`/player-stat/`)}
+                                onClick={() => navigate(`/statistics`)}
                                 isActive={false}/>
                         <Button type={'header'}
                                 title={"Команда"}

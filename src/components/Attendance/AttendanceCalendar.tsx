@@ -1,61 +1,70 @@
-import React, { useState, useEffect } from "react";
-import styles from "./AttendanceCalendar.module.css";
-import { User, Statistic } from "../../types/types";
+import React, {useState, useEffect} from "react";
+import {User} from "../../types/types"; // или путь к твоим типам
+import styles from "./AttendanceCalendar.module.css"
 
 interface AttendanceCalendarProps {
-    user: User;
-    onAttendanceChange: (newAttendance: Statistic["attendance"]) => void;
+    player: User;
+    onChange: (updatedAttendance: { [date: string]: boolean }) => void;
 }
 
-const AttendanceCalendar: React.FC<AttendanceCalendarProps> = ({ user, onAttendanceChange }) => {
-    const [attendance, setAttendance] = useState<Statistic["attendance"]>(user.statistics?.attendance || {});
+const AttendanceCalendar: React.FC<AttendanceCalendarProps> = ({player, onChange}) => {
+    const currentUser: User = JSON.parse(localStorage.getItem("myProject_currentUser") || "{}");
+    const isCoach = currentUser.role === "Тренер";
 
-    // Для примера — возьмём последние 14 дней от сегодня
     const today = new Date();
-    const daysToShow = 30;
+    const year = today.getFullYear();
+    const month = today.getMonth(); // 0 - январь
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const [attendance, setAttendance] = useState<{ [date: string]: boolean }>(
+        player.statistics?.attendance || {}
+    );
 
     useEffect(() => {
-        setAttendance(user.statistics?.attendance || {});
-    }, [user]);
+        onChange(attendance);
+    }, [attendance, onChange]);
 
-    const getDateString = (date: Date) => date.toISOString().slice(0, 10);
+    const toggleDay = (day: number) => {
+        if (!isCoach) return;
 
-    const datesArray = Array.from({ length: daysToShow }).map((_, i) => {
-        const d = new Date(today);
-        d.setDate(today.getDate() - (daysToShow - 1 - i));
-        return getDateString(d);
-    });
-
-    const toggleAttendance = (date: string) => {
-        setAttendance((prev) => {
-            const updated = { ...prev };
-            if (updated[date]) {
-                delete updated[date];
-            } else {
-                updated[date] = true;
-            }
-            onAttendanceChange(updated);
-            return updated;
-        });
+        const date = new Date(year, month, day).toISOString().slice(0, 10); // YYYY-MM-DD
+        setAttendance(prev => ({
+            ...prev,
+            [date]: !prev[date],
+        }));
     };
 
     return (
-        <div className={styles.calendar}>
-            {datesArray.map((date) => {
-                const wasPresent = attendance[date];
+
+        <div className={styles.grid}>
+            {/* Пустые ячейки перед 1 числом */}
+            {[...Array((new Date(year, month, 1).getDay() || 7) - 1)].map((_, i) => (
+                <div key={`empty-${i}`} className={styles.empty}></div>
+            ))}
+
+            {/* Дни месяца */}
+            {[...Array(daysInMonth)].map((_, i) => {
+                const day = i + 1;
+                const date = new Date(year, month, day).toISOString().slice(0, 10);
+                const isPresent = attendance[date];
+
                 return (
                     <div
                         key={date}
-                        className={`${styles.day} ${wasPresent ? styles.present : styles.absent}`}
-                        onClick={() => toggleAttendance(date)}
-                        title={wasPresent ? "Был (клик чтобы снять)" : "Отсутствовал (клик чтобы отметить)"}
+                        onClick={() => isCoach && toggleDay(day)}
+                        className={`
+          ${styles.day} 
+          ${isPresent ? styles.present : styles.absent} 
+          ${isCoach ? styles.clickable : ""}
+        `}
+                        title={date}
                     >
-                        <span>{date}</span>
-                        <span>●</span>
+                        {day}
                     </div>
                 );
             })}
         </div>
+
     );
 };
 

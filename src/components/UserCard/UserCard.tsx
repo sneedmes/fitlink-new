@@ -14,10 +14,14 @@ const UserCard = ({...data}:UserCardProps) => {
     return (
         <>
             <div className={style.card}>
-                <img src={data.photo} alt="Фото пользователя" className={style.avatar}/>
-                <h2>{data.surname} {data.name} {data.fatherName || ''}</h2>
-                <p><strong>Email:</strong> {data.email}</p>
-                <p><strong>Дата рождения:</strong> {data.dateOfBirth}</p>
+                <div className={style.card_container}>
+                    <img src={data.photo} alt="Фото пользователя" className={style.avatar}/>
+                    <div className={style.card_info}>
+                        <h2>{data.surname} {data.name} {data.fatherName || ''}</h2>
+                        <p><strong>Email:</strong> {data.email}</p>
+                        <p><strong>Дата рождения:</strong> {data.dateOfBirth}</p>
+                    </div>
+                </div>
             </div>
         </>
     );
