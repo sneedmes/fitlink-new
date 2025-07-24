@@ -8,7 +8,7 @@ import {ExerciseItem, WorkoutTypes} from "../../../types/types";
 
 const CreateWorkout = () => {
     const [title, setTitle] = useState('');
-    const [isPrivate, setIsPrivate] = useState(false);
+    const [isPrivate, setIsPrivate] = useState(true);
     const [items, setItems] = useState<ExerciseItem[]>([{ exercise: '', image: '' }]);
     const [titleError, setTitleError] = useState('');
     const [itemsError, setItemsError] = useState('');

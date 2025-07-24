@@ -14,12 +14,21 @@ export interface User {
 }
 
 export interface Statistic {
-    goals?: number,
-    assists?: number,
+    goals?: {
+        game: string,
+        value: number
+    }[],
+    assists?: {
+        game: string,
+        value: number
+    }[],
     redCards?: number,
     yellowCards?: number,
-    missedBalls?: number,
-    games?: number;
+    missedBalls?: {
+        game: string,
+        value: number
+    }[],
+    games?: string[];
     attendance?: {
         [date: string]: boolean
     }; // ключ — строка в формате 'YYYY-MM-DD', значение — был ли игрок в этот день

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Header from '../../components/Header/Header';
 import Title from "../../components/Title/Title";
-import {EventsTypes} from '../../types/types';
+import {EventsTypes, TeamType, User} from '../../types/types';
 import style from "./Events.module.css";
 import {Button} from "../../components/Button/Button";
 import {useNavigate} from "react-router-dom";
@@ -12,9 +12,25 @@ const Events = () => {
     const [events, setEvents] = useState<EventsTypes[]>([]);
 
     useEffect(() => {
-        const storedEvents = JSON.parse(localStorage.getItem("myProject_events") || "[]");
-        setEvents(storedEvents);
-    }, []);
+        const storedEvents: EventsTypes[] = JSON.parse(localStorage.getItem("myProject_events") || "[]");
+        const users: User[] = JSON.parse(localStorage.getItem("myProject_users") || "[]"); // Загружаем всех юзеров
+
+        const filteredEvents = storedEvents.filter(event => {
+            if (!event.isPrivate) return true; // Публичные доступны всем
+
+            const eventCreator = users.find(u => u.id === event.userId); // Автор события
+            if (!eventCreator || !eventCreator.team || !currentUser.team) return false;
+
+            // Проверяем, есть ли пересечения в id команд
+            const creatorTeamIds = eventCreator.team.map(t => t.id);
+            const userTeamIds = currentUser.team.map((t: TeamType) => t.id);
+
+            return creatorTeamIds.some(id => userTeamIds.includes(id));
+        });
+
+        setEvents(filteredEvents);
+    }, [currentUser.team]);
+
 
     const handleParticipationToggle = (eventId: number) => {
         const updatedEvents = events.map(event => {

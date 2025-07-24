@@ -22,7 +22,8 @@
 .notJoined:hover,
 .edit:hover,
 .members:hover,
-.submit {
+.submit,
+.player:hover{
     cursor: pointer;
     opacity: 90%;
 }

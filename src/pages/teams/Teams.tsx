@@ -3,9 +3,9 @@ import Header from "../../components/Header/Header";
 import Title from "../../components/Title/Title";
 import style from "./Teams.module.css";
 import { useNavigate } from "react-router-dom";
-import { TeamType, User } from "../../types/types";
+import {DayData, TeamType, User} from "../../types/types";
 import { Button } from "../../components/Button/Button";
-import {ScheduleModal} from "./ScheduleModal/ScheduleModal";
+import {SchedulePanel} from "../../components/ScheduleModal/SchedulePanel";
 
 const Team = () => {
     const navigate = useNavigate();
@@ -156,6 +156,14 @@ const Team = () => {
         setShowMenuFor(null);
     };
 
+    const updateTeamSchedule = (teamId: number, schedule: DayData[]) => {
+        const updatedTeams = teams.map(team =>
+            team.id === teamId ? { ...team, schedule } : team
+        );
+        setTeams(updatedTeams);
+        localStorage.setItem("myProject_teams", JSON.stringify(updatedTeams));
+    };
+
     const renderMemberCard = (user: User, pathPrefix: string) => (
         <div className={style.card} key={user.id}>
             <div className={style.card_main}>
@@ -194,7 +202,7 @@ const Team = () => {
             <div className="content">
                 {(teams.length === 0 || !teamId || !currentTeam) ? (
                     <>
-                        <h2 className={style.without_team}>У вас пока нет команды. Попросите тренера добавить вас!</h2>
+                        <h3 className={style.without_team}>У вас пока нет команды. Попросите тренера добавить вас!</h3>
                         {currentUser.role === 'Тренер' && (
                             <Button
                                 type={'active'}
@@ -208,23 +216,16 @@ const Team = () => {
                     <>
                         {teamId && (
                             <>
+                                <div className={style.schedule}>
+                                    <button onClick={() => setOpen(!open)}><h2>Расписание на текущую неделю {open ? '↴' : "→"}</h2></button>
+
+                                    {open && currentTeam && (
+                                        <SchedulePanel team={currentTeam} updateSchedule={updateTeamSchedule} />
+                                    )}
+                                </div>
+
                                 <div className={style.upper}>
                                     <h2>Состав команды</h2>
-
-                                    <Button
-                                        type={'edit'}
-                                        title={'Расписание'}
-                                        onClick={() => setOpen(true)}
-                                        isActive={false}
-                                    />
-                                    <ScheduleModal
-                                        isOpen={open}
-                                        onClose={() => setOpen(false)}
-                                        currentUser={currentUser}
-                                        currentTeam={currentTeam}
-                                        setTeams={setTeams}
-                                    />
-
                                 </div>
                                 <div className={style.structure}>
                                     {(() => {
@@ -294,12 +295,11 @@ const Team = () => {
                                                                 </button>
                                                             </div>
                                                         )}
-                                                        <div className={style.delete_team}><Button
-                                                            type="edit"
-                                                            title="Удалить команду"
-                                                            onClick={handleDeleteTeam}
-                                                            isActive={true}
-                                                        /></div>
+                                                        <div className={style.delete_team}>
+                                                            <button onClick={handleDeleteTeam}>
+                                                                Удалить команду
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 )}
                                             </>

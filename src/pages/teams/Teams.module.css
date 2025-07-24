@@ -4,6 +4,14 @@
 }
 
 /* MAIN INTERFACE */
+.schedule{
+    margin-bottom: 30px;
+}
+
+.schedule h2{
+    cursor: pointer;
+}
+
 .upper{
     display: flex;
     justify-content: space-between;
@@ -124,9 +132,20 @@ input[type="text"]:focus {
     margin-top: 50px;
 }
 
+.delete_team button{
+    cursor: pointer;
+}
+
 .add_button{
     cursor: pointer;
     margin-top: 20px;
+    border-radius: var(--border-radius);
+    border: black solid 2px;
+    text-align: center;
+    color: black;
+    width: 15rem;
+    height: 30px;
+    background-color: var(--color-passive);
 }
 
 .remove_button{

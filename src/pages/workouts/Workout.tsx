@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import style from "./Workout.module.css";
 import Header from "../../components/Header/Header";
 import Title from "../../components/Title/Title";
-import {WorkoutTypes} from "../../types/types";
+import {TeamType, User, WorkoutTypes} from "../../types/types";
 
 const Workout = () => {
     const navigate = useNavigate();
@@ -12,9 +12,24 @@ const Workout = () => {
     const [workouts, setWorkouts] = useState<WorkoutTypes[]>([]);
 
     useEffect(() => {
-        const storedWorkouts = JSON.parse(localStorage.getItem("myProject_workouts") || "[]");
-        setWorkouts(storedWorkouts);
-    }, []);
+        const storedWorkouts: WorkoutTypes[] = JSON.parse(localStorage.getItem("myProject_workouts") || "[]");
+        const users: User[] = JSON.parse(localStorage.getItem("myProject_users") || "[]"); // Загружаем всех юзеров
+
+        const filteredWorkouts = storedWorkouts.filter(workout => {
+            if (!workout.isPrivate) return true; // Публичные доступны всем
+
+            const workoutCreator = users.find(u => u.id === workout.userId); // Автор события
+            if (!workoutCreator || !workoutCreator.team || !currentUser.team) return false;
+
+            // Проверяем, есть ли пересечения в id команд
+            const creatorTeamIds = workoutCreator.team.map(t => t.id);
+            const userTeamIds = currentUser.team.map((t: TeamType) => t.id);
+
+            return creatorTeamIds.some(id => userTeamIds.includes(id));
+        });
+
+        setWorkouts(filteredWorkouts);
+    }, [currentUser.team]);
 
 
     if (!currentUser || !currentUser.id) {
@@ -38,7 +53,7 @@ const Workout = () => {
                         <div className={style.workout}>
                             <div>
                                 <h1>{w.title}</h1>
-                                <p>{w.isPrivate ? "Приватная тренировка" : "Общая тренировка"}</p>
+                                <p>{w.isPrivate ? "Приватная тренировка (только для команды)" : "Общая тренировка (доступна всем)"}</p>
                             </div>
 
                             <div className={style.edit}>

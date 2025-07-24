@@ -4,7 +4,7 @@ import Title from "../../../components/Title/Title";
 import { Button } from "../../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import style from "./CreateTeam.module.css";
-import {User} from "../../../types/types";
+import { User, TeamType } from "../../../types/types";
 
 const CreateTeam = () => {
     const navigate = useNavigate();
@@ -12,14 +12,14 @@ const CreateTeam = () => {
     const [teamName, setTeamName] = useState('');
     const [memberInput, setMemberInput] = useState('');
     const [logoData, setLogoData] = useState<string | null>(null);
-    const [allUsers, setAllUsers] = useState<any[]>([]);
-    const [filteredUsers, setFilteredUsers] = useState<any[]>([]);
-    const [selectedMembers, setSelectedMembers] = useState<any[]>([]);
-    const [currentUser, setCurrentUser] = useState<any>(null);
+    const [allUsers, setAllUsers] = useState<User[]>([]);
+    const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+    const [selectedMembers, setSelectedMembers] = useState<User[]>([]);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
 
     useEffect(() => {
-        const users = JSON.parse(localStorage.getItem('myProject_users') || '[]');
-        const current = JSON.parse(localStorage.getItem('myProject_currentUser') || '{}');
+        const users: User[] = JSON.parse(localStorage.getItem('myProject_users') || '[]');
+        const current: User = JSON.parse(localStorage.getItem('myProject_currentUser') || '{}');
 
         const filtered = users.filter((user: User) =>
             user.id !== current.id && (!user.team || user.team.length === 0)
@@ -30,18 +30,17 @@ const CreateTeam = () => {
         setFilteredUsers(filtered);
     }, []);
 
-
-    const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function (ev) {
-            if (typeof ev.target?.result === 'string') {
-                setLogoData(ev.target.result);
-            }
-        };
-        reader.readAsDataURL(file);
-    };
+    // const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const file = e.target.files?.[0];
+    //     if (!file) return;
+    //     const reader = new FileReader();
+    //     reader.onload = function (ev) {
+    //         if (typeof ev.target?.result === 'string') {
+    //             setLogoData(ev.target.result);
+    //         }
+    //     };
+    //     reader.readAsDataURL(file);
+    // };
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.toLowerCase();
@@ -53,9 +52,8 @@ const CreateTeam = () => {
         setFilteredUsers(filtered);
     };
 
-
-    const handleSelectUser = (user: any) => {
-        if (user.id === currentUser?.id) return; // Игнорируем себя
+    const handleSelectUser = (user: User) => {
+        if (user.id === currentUser?.id) return;
 
         if (!selectedMembers.find(m => m.id === user.id)) {
             setSelectedMembers([...selectedMembers, user]);
@@ -63,7 +61,7 @@ const CreateTeam = () => {
     };
 
     const handleRemoveMember = (id: number) => {
-
+        setSelectedMembers(prev => prev.filter(user => user.id !== id));
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -72,38 +70,33 @@ const CreateTeam = () => {
 
         const newTeamId = Date.now();
 
-        // Создаём новую команду
-        const newTeam = {
+        const newTeam: TeamType = {
             id: newTeamId,
             userId: currentUser.id,
             name: teamName,
-            img: logoData,
+            img: logoData || undefined,
             members: [currentUser, ...selectedMembers],
         };
 
-        // Обновляем список команд
-        const storedTeams = JSON.parse(localStorage.getItem('myProject_teams') || '[]');
+        const storedTeams: TeamType[] = JSON.parse(localStorage.getItem('myProject_teams') || '[]');
         localStorage.setItem('myProject_teams', JSON.stringify([newTeam, ...storedTeams]));
 
-        // Обновляем пользователей (назначаем команде участников)
-        const updatedUsers = allUsers.map(user => {
-            if (selectedMembers.find(m => m.id === user.id)) {
-                const updatedTeams = user.team ? [...user.team, newTeam] : [newTeam];
-                return { ...user, team: updatedTeams };
+        const allUsersRaw: User[] = JSON.parse(localStorage.getItem('myProject_users') || '[]');
+
+        const newUpdatedUsers: User[] = allUsersRaw.map(user => {
+            if (user.id === currentUser.id || selectedMembers.find(m => m.id === user.id)) {
+                return {
+                    ...user,
+                    team: user.team ? [...user.team, newTeam] : [newTeam],
+                };
             }
             return user;
         });
 
-        // Обновляем текущего пользователя (тоже добавляем команду)
-        const updatedCurrentUser = {
-            ...currentUser,
-            team: currentUser.team ? [...currentUser.team, newTeam] : [newTeam],
-        };
-
-        // Сохраняем всё в localStorage
-        const allUsersWithCurrent = [...updatedUsers, updatedCurrentUser];
-        localStorage.setItem('myProject_users', JSON.stringify(allUsersWithCurrent));
-        localStorage.setItem('myProject_currentUser', JSON.stringify(updatedCurrentUser));
+        localStorage.setItem('myProject_users', JSON.stringify(newUpdatedUsers));
+        localStorage.setItem('myProject_currentUser', JSON.stringify(
+            newUpdatedUsers.find(u => u.id === currentUser.id)
+        ));
 
         navigate('/team');
     };
@@ -165,29 +158,28 @@ const CreateTeam = () => {
                             </div>
                         )}
 
-                        <label htmlFor="logo" className={style.load_img}>
-                            <h5>Загрузить логотип</h5>
-                        </label>
-                        <input
-                            className={style.img_input}
-                            type="file"
-                            id="logo"
-                            onChange={handleLogoChange}
-                        />
+                        {/*<label htmlFor="logo" className={style.load_img}>*/}
+                        {/*    <h5>Загрузить логотип</h5>*/}
+                        {/*</label>*/}
+                        {/*<input*/}
+                        {/*    className={style.img_input}*/}
+                        {/*    type="file"*/}
+                        {/*    id="logo"*/}
+                        {/*    onChange={handleLogoChange}*/}
+                        {/*/>*/}
 
-
-                        {logoData && (
-                            <div className={style.logo_preview}>
-                                <p>Превью логотипа:</p>
-                                <img src={logoData} alt="Logo preview" className={style.logo_image}/>
-                            </div>
-                        )}
+                        {/*{logoData && (*/}
+                        {/*    <div className={style.logo_preview}>*/}
+                        {/*        <p>Превью логотипа:</p>*/}
+                        {/*        <img src={logoData} alt="Logo preview" className={style.logo_image} />*/}
+                        {/*    </div>*/}
+                        {/*)}*/}
 
                         <Button
                             type="active"
                             title={'Создать команду'}
                             isActive={true}
-                            onClick={()=>null}
+                            onClick={() => null}
                         />
                     </form>
                 </div>
