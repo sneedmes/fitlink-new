@@ -29,7 +29,7 @@ const Events = () => {
         });
 
         setEvents(filteredEvents);
-    }, [currentUser.team]);
+    }, []);
 
 
     const handleParticipationToggle = (eventId: number) => {

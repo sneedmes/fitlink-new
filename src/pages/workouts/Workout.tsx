@@ -29,7 +29,7 @@ const Workout = () => {
         });
 
         setWorkouts(filteredWorkouts);
-    }, [currentUser.team]);
+    }, []);
 
 
     if (!currentUser || !currentUser.id) {
