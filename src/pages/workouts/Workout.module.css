@@ -269,3 +269,48 @@
 .imageContainer:hover {
     transform: scale(1.02);
 }
+
+/* EX */
+.exercise_card {
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    background: #fafafa;
+    position: relative;
+}
+
+.exercise_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.remove_button {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: crimson;
+    cursor: pointer;
+}
+
+.exercise_input_field,
+.exercise_file_input {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.preview_container {
+    margin-top: 10px;
+}
+
+.preview_image {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}

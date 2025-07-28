@@ -21,12 +21,19 @@ const Team = () => {
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
-        const users = JSON.parse(localStorage.getItem('myProject_users') || '[]');
-        const current = JSON.parse(localStorage.getItem('myProject_currentUser') || '{}');
+        const users: User[] = JSON.parse(localStorage.getItem('myProject_users') || '[]');
+        const current: User = JSON.parse(localStorage.getItem('myProject_currentUser') || '{}');
         const savedTeams: TeamType[] = JSON.parse(localStorage.getItem("myProject_teams") || "[]");
-        const userTeams = savedTeams.filter(team =>
-            current.team?.some((t: any) => t.id === team.id)
-        );
+
+        const userTeams = savedTeams
+            .filter(team => current.team?.some((t: any) => t.id === team.id))
+            .map(team => ({
+                ...team,
+                members: team.members.map(member => {
+                    const updated = users.find(u => u.id === member.id);
+                    return updated || member;
+                })
+            }));
 
         const filtered = users.filter((user: User) => user.id !== current.id);
 
@@ -35,6 +42,7 @@ const Team = () => {
         setAllUsers(filtered);
         setFilteredUsers(filtered);
     }, [currentUser.id]);
+
 
     if (!currentUser || !currentUser.id) {
         return <p className={style.error}>Данные пользователя недоступны.</p>;

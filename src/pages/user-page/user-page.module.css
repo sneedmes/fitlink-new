@@ -35,6 +35,10 @@
     margin-bottom: 30px;
 }
 
+.stat h2 span{
+    color: var(--color-active);
+}
+
 .card_stat{
     display: flex;
     flex-direction: column;

@@ -17,7 +17,7 @@ const EditWorkout = () => {
 
     const [formData, setFormData] = useState({
         title: workout?.title || '',
-        privat: workout?.isPrivate || false,
+        isPrivate: workout?.isPrivate || false,
         items: workout?.items || [{ exercise: '', image: '' }],
     });
 
@@ -97,43 +97,49 @@ const EditWorkout = () => {
 
                     <div className={style.exercise_input}>
                         {formData.items.map((item, index) => (
-                            <div key={index}>
-                                <h2>Упражнение</h2>
+                            <div key={index} className={style.exercise_card}>
+                                <div className={style.exercise_header}>
+                                    <h3>Упражнение {index + 1}</h3>
+                                    {formData.items.length > 1 && (
+                                        <button
+                                            type="button"
+                                            onClick={() => handleRemoveItem(index)}
+                                            className={style.remove_button}
+                                            title="Удалить упражнение"
+                                        >
+                                            ✕
+                                        </button>
+                                    )}
+                                </div>
+
                                 <input
                                     type="text"
                                     placeholder="Название упражнения"
                                     value={item.exercise}
-                                    onChange={(e) =>
-                                        handleItemChange(index, 'exercise', e.target.value)
-                                    }
+                                    onChange={(e) => handleItemChange(index, 'exercise', e.target.value)}
+                                    className={style.exercise_input_field}
                                 />
+
                                 <input
                                     type="file"
                                     accept="image/*"
-                                    onChange={(e) =>
-                                        handleImageUpload(index, e.target.files?.[0] || null)
-                                    }
+                                    onChange={(e) => handleImageUpload(index, e.target.files?.[0] || null)}
+                                    className={style.exercise_file_input}
                                 />
-                                {item.image && (
-                                    <img
-                                        src={item.image}
-                                        alt="Упражнение"
-                                        style={{ width: 100, height: 100, objectFit: 'cover', marginTop: 8 }}
-                                    />
-                                )}
 
-                                {formData.items.length > 1 && (
-                                    <button
-                                        type="button"
-                                        onClick={() => handleRemoveItem(index)}
-                                        className={style.remove_button}
-                                    >
-                                        Удалить упражнение
-                                    </button>
+                                {item.image && (
+                                    <div className={style.preview_container}>
+                                        <img
+                                            src={item.image}
+                                            alt={`Упражнение ${index + 1}`}
+                                            className={style.preview_image}
+                                        />
+                                    </div>
                                 )}
                             </div>
                         ))}
                     </div>
+
 
                     <Button
                         onClick={handleAddItem}
@@ -147,9 +153,9 @@ const EditWorkout = () => {
                         <label className={style.checkbox_label}>
                             <input
                                 type="checkbox"
-                                name="privat"
+                                name="isPrivate"
                                 className={style.checkbox_input}
-                                checked={formData.privat}
+                                checked={formData.isPrivate}
                                 onChange={handleChange}
                             />
                             <span className={style.checkbox_slider}></span>

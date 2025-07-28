@@ -1,22 +1,73 @@
-.info_main, .info_developers, .info_coach, .info_athlete{
-    padding: 27px 100px 27px 32px;
-    background-color: white;
+.info_main,
+.info_developers,
+.info_coach,
+.info_athlete {
+    padding: 32px;
+    background-color: #ffffff;
     border-radius: var(--border-radius);
     margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
 }
 
-.info_main h1, .info_developers h1, .info_coach h1, .info_athlete h1{
-    margin-bottom: 35px;
+.info_main:hover,
+.info_developers:hover,
+.info_coach:hover,
+.info_athlete:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
-.info_coach li, .info_athlete li{
+.info_main h1,
+.info_developers h1,
+.info_coach h1,
+.info_athlete h1 {
+    margin-bottom: 25px;
+    font-size: 26px;
+    color: #222;
+}
+
+.info_main h3,
+.info_developers h3,
+.info_coach h3,
+.info_athlete h3 {
+    font-weight: 400;
+    font-size: 16px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.info_coach li,
+.info_athlete li {
     list-style: url("../../assets/materials/list.png");
-    vertical-align: top;
+    margin-bottom: 8px;
+    padding-left: 4px;
+    color: #333;
 }
 
-.info_button{
+.main_container {
     display: flex;
-    justify-content: center;
-    height: 90px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
 }
 
+.main_container img {
+    width: 280px;
+    height: 280px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.main_text {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 65%;
+    min-width: 280px;
+}
+
+.main_text h3 {
+    white-space: pre-line;
+}

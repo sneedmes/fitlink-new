@@ -33,6 +33,10 @@
     margin-bottom: 10px;
 }
 
+.event_info{
+    width: 70%;
+}
+
 .members{
     display: flex;
     flex-direction: row;
@@ -42,6 +46,11 @@
 
 .members p{
     font-size: 12px;
+}
+
+.members_btns{
+    display: flex;
+    flex-direction: column;
 }
 
 .add_event, .editEvent{

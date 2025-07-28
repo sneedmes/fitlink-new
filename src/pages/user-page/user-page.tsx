@@ -14,6 +14,12 @@ const UserPage = () => {
     const navigate = useNavigate()
 
     const [user, setUser] = useUserFromStorage();
+    const monthNames = [
+        "январь", "февраль", "март", "апрель", "май", "июнь",
+        "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"
+    ];
+
+    const currentMonthName = monthNames[new Date().getMonth()];
 
     const updateAttendance = (newAttendance: Statistic["attendance"]) => {
         if (!user) return;
@@ -41,9 +47,6 @@ const UserPage = () => {
         }
     };
 
-
-
-
     if (!user) return <div>Пользователь не найден 😢</div>;
 
 
@@ -66,7 +69,7 @@ const UserPage = () => {
                     <div className={styles.stat_container}>
 
                         <div className={styles.stat}>
-                            <h2>Посещаемость</h2>
+                            <h2>Посещаемость на <span>{currentMonthName}</span></h2>
                             <AttendanceCalendar
                                 player={user}
                                 onChange={updateAttendance}
@@ -85,7 +88,7 @@ const UserPage = () => {
                                     <h4>Игры: <span className={styles.label}>{user.statistics?.games?.length}</span></h4>
                                 </div>
                                 {currentUser.role === "Тренер" &&
-                                    <Button type={'edit'} title={'Изменить достижения'}
+                                    <Button type={'edit'} title={'Изменить статистику'}
                                             onClick={() => navigate(`/player-info-stat/${user?.id}`)}
                                             isActive={false}/>
                                 }

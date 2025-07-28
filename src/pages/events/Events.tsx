@@ -69,7 +69,7 @@ const Events = () => {
                                 const hasJoined = event.joinedUsers?.includes(currentUser.id);
                                 return (
                                     <div key={event.id} className={style.event}>
-                                        <div>
+                                        <div className={style.event_info}>
                                             <h1>{event.title}</h1>
                                             <h3>{event.desc}</h3>
                                             <h4>{event.date}</h4>
@@ -79,20 +79,22 @@ const Events = () => {
                                             </h6>
                                         </div>
                                         <div className={style.members}>
-                                            {event.userId === currentUser.id &&
+                                            <div className={style.members_btns}>
                                                 <Button
-                                                    title="Редактировать"
-                                                    onClick={() => navigate(`/edit-event/${event.id}`)}
-                                                    type="edit"
-                                                    isActive={true}
+                                                    title={hasJoined ? 'Отменить участие' : 'Принять участие'}
+                                                    type={'join'}
+                                                    onClick={() => handleParticipationToggle(event.id)}
+                                                    isActive={!hasJoined}
                                                 />
-                                            }
-                                            <Button
-                                                title={hasJoined ? 'Отменить участие' : 'Принять участие'}
-                                                type={'join'}
-                                                onClick={() => handleParticipationToggle(event.id)}
-                                                isActive={!hasJoined}
-                                            />
+                                                {event.userId === currentUser.id &&
+                                                    <Button
+                                                        title="Редактировать"
+                                                        onClick={() => navigate(`/edit-event/${event.id}`)}
+                                                        type="edit"
+                                                        isActive={true}
+                                                    />
+                                                }
+                                            </div>
                                             <p>Участников: {event.members}</p>
                                         </div>
                                     </div>
