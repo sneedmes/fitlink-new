@@ -9,6 +9,7 @@ import ItemPlayer from "../../assets/materials/main-player.png"
 import {DayData, EventsTypes, TeamType, User, WorkoutTypes} from "../../types/types";
 import {Button} from "../../components/Button/Button";
 import defaultPhoto from "../../assets/default-profile-photo.png";
+import Statistics from "../statistics/Statistics";
 
 export const Main = () => {
     const about = [
@@ -69,6 +70,27 @@ export const Main = () => {
             return result;
         };
 
+        const generateCurrentMonthAttendance = (): { [date: string]: boolean } => {
+            const attendance: { [date: string]: boolean } = {};
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = today.getMonth(); // 0-based
+
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dateStr = date.toISOString().split("T")[0]; // YYYY-MM-DD
+
+                // Случайным образом пропускаем некоторые дни
+                if (date <= today) {
+                    attendance[dateStr] = Math.random() > 0.3;
+                }
+            }
+
+            return attendance;
+        };
+
         const teamId = 1;
         const team: TeamType = {
             userId: 1,
@@ -82,24 +104,26 @@ export const Main = () => {
 
         // Женские имена и фамилии для 2 тренеров + 15 спортсменок
         const realUsersData = [
-            { name: "Анна", surname: "Тренерова", role: "Тренер" },
-            { name: "Екатерина", surname: "Кириллова", role: "Тренер" },
+            { name: "Мария", surname: "Черепанова", role: "Тренер" },
+            { name: "Алина", surname: "Якимкина", role: "Тренер" },
 
-            { name: "Мария", surname: "Иванова", role: "Спортсмен" },
-            { name: "Ольга", surname: "Васильева", role: "Спортсмен" },
-            { name: "Наталья", surname: "Новикова", role: "Спортсмен" },
-            { name: "Татьяна", surname: "Соколова", role: "Спортсмен" },
-            { name: "Ирина", surname: "Макарова", role: "Спортсмен" },
-            { name: "Елена", surname: "Федорова", role: "Спортсмен" },
-            { name: "Анастасия", surname: "Михайлова", role: "Спортсмен" },
-            { name: "Юлия", surname: "Лебедева", role: "Спортсмен" },
-            { name: "Виктория", surname: "Орлова", role: "Спортсмен" },
-            { name: "Светлана", surname: "Зайцева", role: "Спортсмен" },
-            { name: "Дарья", surname: "Сергева", role: "Спортсмен" },
-            { name: "Ксения", surname: "Волкова", role: "Спортсмен" },
-            { name: "Полина", surname: "Николаева", role: "Спортсмен" },
-            { name: "Евгения", surname: "Морозова", role: "Спортсмен" },
-            { name: "Валерия", surname: "Петрова", role: "Спортсмен" }
+            { name: "Сусанна", surname: "Даллакян", role: "Спортсмен" },
+            { name: "Екатерина", surname: "Дианова", role: "Спортсмен" },
+            { name: "Екатерина", surname: "Никифорова", role: "Спортсмен" },
+            { name: "Екатерина", surname: "Борсук", role: "Спортсмен" },
+            { name: "Дарья", surname: "Гневнова", role: "Спортсмен" },
+            { name: "Дарья", surname: "Васюхина", role: "Спортсмен" },
+            { name: "Руслана", surname: "Шешунова", role: "Спортсмен" },
+            { name: "Александра", surname: "Лихолетова", role: "Спортсмен" },
+            { name: "Жанна", surname: "Григорьева", role: "Спортсмен" },
+            { name: "Людмила", surname: "Зайка", role: "Спортсмен" },
+            { name: "Алиса", surname: "Юсупова", role: "Спортсмен" },
+            { name: "Милана", surname: "Герасимова", role: "Спортсмен" },
+            { name: "Полина", surname: "Котляева", role: "Спортсмен" },
+            { name: "Ксения", surname: "Попкова", role: "Спортсмен" },
+            { name: "Анастасия", surname: "Ручко", role: "Спортсмен" },
+            { name: "Мария", surname: "Кортунова", role: "Спортсмен" },
+            { name: "Юлия", surname: "Рябова", role: "Спортсмен" }
         ];
 
         realUsersData.forEach((data, index) => {
@@ -114,7 +138,24 @@ export const Main = () => {
                 password: "123456",
                 role: data.role as "Тренер" | "Спортсмен",
                 team: [{ ...team, members: [] }],
-                statistics: {},
+                statistics: {
+                    goals: Array.from({ length: 3 }, (_, i) => ({
+                        game: `Игра ${i + 1}`,
+                        value: Math.floor(Math.random() * 3),
+                    })),
+                    assists: Array.from({ length: 2 }, (_, i) => ({
+                        game: `Игра ${i + 1}`,
+                        value: Math.floor(Math.random() * 2),
+                    })),
+                    missedBalls: Array.from({ length: 2 }, (_, i) => ({
+                        game: `Игра ${i + 1}`,
+                        value: Math.floor(Math.random() * 5),
+                    })),
+                    yellowCards: Math.floor(Math.random() * 3),
+                    redCards: Math.floor(Math.random() * 2),
+                    games: ["Игра 1", "Игра 2", "Игра 3"],
+                    attendance: generateCurrentMonthAttendance()
+                },
                 events: [],
                 workouts: []
             };
