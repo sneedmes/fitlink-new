@@ -6,6 +6,7 @@ export interface User {
     photo: string; // URL или путь к фото
     dateOfBirth: string; // Дата рождения
     email: string; // Почта пользователя
+    password: string; // Пароль
     role: 'Тренер' | 'Спортсмен'; // Роль пользователя
     team?: TeamType[] // Команда пользователя
     statistics?: Statistic // Статистика пользователя

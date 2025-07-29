@@ -39,3 +39,30 @@
     flex-direction: column;
     width: 50%;
 }
+
+@media (max-width: 600px) {
+    .upper_container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .upper_container img {
+        width: 150px;
+        height: 150px;
+        border-radius: 10px;
+    }
+
+    .upper_inputs {
+        width: 100%;
+    }
+
+    .form_input {
+        width: 150%;
+        margin-right: 10px;
+    }
+
+    .form_span Button{
+        margin-top: 12px;
+    }
+}

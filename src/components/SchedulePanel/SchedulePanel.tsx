@@ -13,7 +13,7 @@ interface Props {
     updateSchedule: (teamId: number, schedule: DayData[]) => void;
 }
 
-const daysOfWeek = ["В", "П", "В", "С", "Ч", "П", "С"]; // начиная с воскресенья
+const daysOfWeek = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]; // начиная с воскресенья
 
 
 export const SchedulePanel: React.FC<Props> = ({ team, updateSchedule }) => {

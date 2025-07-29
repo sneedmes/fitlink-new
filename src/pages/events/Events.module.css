@@ -130,3 +130,56 @@
     text-align: center;
     min-width: 210px; /* подгони по самой длинной строке */
 }
+
+@media (max-width: 600px) {
+    .event {
+        flex-direction: column;
+        padding: 15px 15px;
+    }
+
+    .event_info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+    }
+
+    .members {
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .add_event input,
+    .editEvent input {
+        width: 100%;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .members_btns {
+        flex-direction: row;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .members p{
+        margin-top: 10px;
+    }
+
+    .privacy_toggle {
+        gap: 10px;
+    }
+
+    .label_text {
+        min-width: auto;
+        font-size: 14px;
+    }
+
+    .event h3 {
+        text-align: left;
+    }
+}

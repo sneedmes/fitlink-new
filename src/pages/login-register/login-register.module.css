@@ -111,10 +111,25 @@ select:focus {
 /* Responsive */
 @media (max-width: 540px) {
     .login_container {
-        margin: 1.5rem 1rem;
+        width: 100%;
+        max-width: 100%; /* чтобы не ограничивало ширину */
+        margin: 1.5rem 0;
+        box-shadow: none; /* чтобы не было лишних теней на мелком экране */
     }
     .signin,
     .signup {
-        padding: 1.5rem;
+        padding: 1rem 1rem;
+    }
+    .tabs {
+        flex-direction: column;
+    }
+    .tabs button {
+        flex: none;
+        width: 100%;
+        padding: 0.75rem 0;
+        font-size: 1rem;
+    }
+    .tab_active {
+        border-radius: 0.75rem 0.75rem 0 0;
     }
 }

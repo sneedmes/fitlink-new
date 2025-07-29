@@ -1,0 +1,89 @@
+.panelWrapper {
+    border: 1px solid var(--color-passive);
+    padding: 16px;
+    border-radius: 6px;
+    background-color: white;
+    margin: 30px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.title {
+    margin-bottom: 16px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.grid {
+    display: flex;
+    justify-content: space-between;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    margin: 0 4px;
+}
+
+.dayLabel {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    font-weight: 700;
+    margin-bottom: 4px;
+    width: 100%; /* или auto */
+}
+
+.date {
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.timeInput {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .panelWrapper {
+        margin: 15px 10px;
+        padding: 12px;
+        box-shadow: none;
+        border: none;
+    }
+
+    .title {
+        font-size: 18px;
+        margin-bottom: 12px;
+        text-align: center;
+    }
+
+    .grid {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .column {
+        margin: 0;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .dayLabel {
+        font-size: 14px;
+    }
+
+    .date {
+        font-size: 11px;
+    }
+
+    .timeInput {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+

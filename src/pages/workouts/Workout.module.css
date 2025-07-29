@@ -314,3 +314,21 @@
     border-radius: 8px;
     object-fit: cover;
 }
+
+@media (max-width: 600px) {
+    .details{
+       align-items: center;
+    }
+
+    .itemsList{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .workout p{
+        font-size: 10px;
+        width: 80%;
+    }
+}

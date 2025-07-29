@@ -44,3 +44,30 @@
 .buttonRow button{
     cursor: pointer;
 }
+
+@media (max-width: 600px) {
+    .statCardsContainer {
+        grid-template-columns: 1fr; /* 1 колонка на телефоне */
+        gap: 12px;
+    }
+
+    .btn {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .buttonGroup {
+        justify-content: center; /* Центрируем кнопки */
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .buttonRow {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .buttonRow button {
+        width: 100%; /* Кнопки во всю ширину */
+    }
+}

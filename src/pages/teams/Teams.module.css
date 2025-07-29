@@ -188,7 +188,17 @@ input[type="text"]:focus {
     cursor: pointer;
 }
 
+@media (max-width: 600px) {
+    .card {
+        width: 92%;
+    }
 
+    .search_container {
+        width: 100% !important;
+        margin-top: 20px;
+    }
 
-
-
+    .add_button {
+        width: 100% !important;
+    }
+}

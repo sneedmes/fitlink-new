@@ -134,3 +134,60 @@ input[type="text"]:focus {
     border: 2px solid #ddd;
     padding: 4px;
 }
+
+@media (max-width: 600px) {
+    .create_team_container {
+        padding: 20px 12px;
+        box-shadow: none;
+        border-radius: 12px;
+    }
+
+    h3 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    input[type="text"] {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    .search_list {
+        max-height: 120px;
+        font-size: 13px;
+    }
+
+    .preview_members {
+        padding: 10px;
+    }
+
+    .preview_members h4 {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .preview_members ul {
+        gap: 6px;
+    }
+
+    .member_chip {
+        font-size: 12px;
+        padding: 5px 8px;
+        gap: 4px;
+    }
+
+    .remove_button {
+        font-size: 14px;
+    }
+
+    .logo_image {
+        max-width: 100%;
+        height: auto;
+        max-height: 120px;
+    }
+
+    .logo_preview p {
+        font-size: 13px;
+        text-align: center;
+    }
+}

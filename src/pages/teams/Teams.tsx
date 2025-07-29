@@ -5,7 +5,7 @@ import style from "./Teams.module.css";
 import { useNavigate } from "react-router-dom";
 import {DayData, TeamType, User} from "../../types/types";
 import { Button } from "../../components/Button/Button";
-import {SchedulePanel} from "../../components/ScheduleModal/SchedulePanel";
+import {SchedulePanel} from "../../components/SchedulePanel/SchedulePanel";
 
 const Team = () => {
     const navigate = useNavigate();

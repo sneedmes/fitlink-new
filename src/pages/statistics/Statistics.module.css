@@ -27,3 +27,12 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border: 1px solid #ccc;
 }
+
+@media (max-width: 600px) {
+    .attendance_card {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        padding: 10px;
+    }
+}
