@@ -134,6 +134,7 @@ export const Main = () => {
             { title: 'Открытие турнира', desc: 'Всем приходить с хорошим настроением!', isPrivate: false },
             { title: 'Сборы', desc: 'Быть в кипе! Не опаздывать!', isPrivate: true },
             { title: 'Игра со Спартаком', desc: 'Играем в белой форме! Не забыть фишки и манишки', isPrivate: true },
+            { title: 'Игра со Зенитом', desc: 'Играем в синей форме! Не забыть фишки и манишки', isPrivate: true },
         ]
 
         realUsersData.forEach((data, index) => {
