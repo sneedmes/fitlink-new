@@ -83,7 +83,7 @@ const StatCard = ({
                                             onClick={() => onEdit(index)}
                                             type="button"
                                         >
-                                            🖉
+                                            ✎
                                         </button>
                                     )}
                                     {onDelete && (

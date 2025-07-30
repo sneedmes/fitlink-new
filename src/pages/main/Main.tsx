@@ -10,6 +10,9 @@ import {DayData, EventsTypes, TeamType, User, WorkoutTypes} from "../../types/ty
 import {Button} from "../../components/Button/Button";
 import defaultPhoto from "../../assets/default-profile-photo.png";
 import Statistics from "../statistics/Statistics";
+import run from "../../assets/test/run.png"
+import tech from "../../assets/test/tech.png"
+import shots from "../../assets/test/shots.png"
 
 export const Main = () => {
     const about = [
@@ -95,7 +98,7 @@ export const Main = () => {
         const team: TeamType = {
             userId: 1,
             id: teamId,
-            name: "ФитЛинк Юнайтед",
+            name: "ЖФК Крылья Советов - М",
             img: defaultPhoto,
             schedule: getCurrentWeekSchedule(),
             members: [],
@@ -123,8 +126,15 @@ export const Main = () => {
             { name: "Ксения", surname: "Попкова", role: "Спортсмен" },
             { name: "Анастасия", surname: "Ручко", role: "Спортсмен" },
             { name: "Мария", surname: "Кортунова", role: "Спортсмен" },
-            { name: "Юлия", surname: "Рябова", role: "Спортсмен" }
+            { name: "Юлия", surname: "Рябова", role: "Спортсмен" },
+            { name: "Милана", surname: "Ахмадеева", role: "Спортсмен" },
         ];
+
+        const realEvents = [
+            { title: 'Открытие турнира', desc: 'Всем приходить с хорошим настроением!', isPrivate: false },
+            { title: 'Сборы', desc: 'Быть в кипе! Не опаздывать!', isPrivate: true },
+            { title: 'Игра со Спартаком', desc: 'Играем в белой форме! Не забыть фишки и манишки', isPrivate: true },
+        ]
 
         realUsersData.forEach((data, index) => {
             const id = index + 1;
@@ -164,31 +174,33 @@ export const Main = () => {
         });
 
         // 3 общих события (созданы тренерами)
-        for (let i = 1; i <= 3; i++) {
+        realEvents.forEach((eventData, index) => {
             const event: EventsTypes = {
-                userId: i <= 2 ? i : 1,
-                id: i,
-                title: `Общее событие ${i}`,
-                desc: `Описание общего события ${i}`,
+                userId: index < 2 ? index + 1 : 1,
+                id: index + 1,
+                title: eventData.title,
+                desc: eventData.desc,
                 time: "18:00",
-                date: `2025-08-0${i}`,
+                date: `2025-08-0${index + 1}`,
                 members: users.length,
                 joinedUsers: users.map(u => u.id),
-                isPrivate: false
+                isPrivate: eventData.isPrivate
             };
             events.push(event);
-        }
+        });
+
 
         // 2 общие тренировки (созданы тренерами)
         for (let i = 1; i <= 2; i++) {
             const workout: WorkoutTypes = {
                 userId: i <= 2 ? i : 1,
                 id: i,
-                title: `Общая тренировка ${i}`,
-                isPrivate: false,
+                title: `Тренировка на ${i}.07`,
+                isPrivate: true,
                 items: [
-                    { exercise: "Бег", image: "" },
-                    { exercise: "Пресс", image: "" }
+                    { exercise: "Бег 20 минут", image: run },
+                    { exercise: "Технический комплекс", image: tech },
+                    { exercise: "Удары по воротам", image: shots }
                 ]
             };
             workouts.push(workout);
