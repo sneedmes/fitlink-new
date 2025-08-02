@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Header from '../../components/Header/Header';
 import Title from "../../components/Title/Title";
 import {EventsTypes, TeamType, User} from '../../types/types';
 import style from "./Events.module.css";
@@ -59,7 +58,7 @@ const Events = () => {
 
     return (
         <>
-            <Header/>
+            {/*<Header/>*/}
             <Title title={'События'}/>
             <div className="content">
                 <div className={style.events}>

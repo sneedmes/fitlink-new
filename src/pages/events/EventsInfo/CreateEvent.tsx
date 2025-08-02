@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import style from '../Events.module.css';
-import Header from '../../../components/Header/Header';
 import {useNavigate} from 'react-router-dom';
 import {EventsTypes} from '../../../types/types';
 import {Button} from "../../../components/Button/Button";
@@ -45,7 +44,7 @@ const CreateEvent = () => {
 
     return (
         <>
-            <Header/>
+            {/*<Header/>*/}
             <Title title={'Создать событие'}/>
 
             <div className='content'>

@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from "../../components/Header/Header";
 import Title from "../../components/Title/Title";
 import UserCard from "../../components/UserCard/UserCard";
 import {useNavigate} from "react-router-dom";
@@ -52,7 +51,7 @@ const UserPage = () => {
 
     return (
         <>
-            <Header/>
+            {/*<Header/>*/}
             <Title title={user.name}/>
             <div className="content">
                 <Button type={'edit'} title={'Назад'} onClick={() => navigate(`/team`)}

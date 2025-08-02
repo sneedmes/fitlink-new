@@ -1,6 +1,5 @@
 import React from 'react';
 import Title from "../../components/Title/Title";
-import Header from "../../components/Header/Header";
 import {User} from "../../types/types";
 import styles from "./Statistics.module.css"
 import AttendanceCalendar from "../../components/Attendance/AttendanceCalendar";
@@ -34,7 +33,7 @@ const Statistics = () => {
 
     return (
         <>
-            <Header/>
+            {/*<Header/>*/}
             <Title title="Статистика"/>
             <div className="content">
                 {(currentUser.team?.length === 0) ? (

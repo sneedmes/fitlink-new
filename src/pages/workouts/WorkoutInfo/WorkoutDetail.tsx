@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import Header from '../../../components/Header/Header';
 import Title from '../../../components/Title/Title';
 import {Button} from '../../../components/Button/Button';
 import style from '../Workout.module.css';
@@ -33,7 +32,7 @@ const WorkoutDetails = () => {
 
     return (
         <>
-            <Header/>
+            {/*<Header/>*/}
             <Title title={workout.title}/>
 
             <div className="content">

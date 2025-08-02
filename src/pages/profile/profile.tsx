@@ -1,6 +1,5 @@
 import React, {useState, ChangeEvent} from "react";
 import style from "./profile.module.css";
-import Header from "../../components/Header/Header";
 import Title from "../../components/Title/Title";
 import Toast from "../../components/Toast/Toast";
 import {Button} from "../../components/Button/Button";
@@ -67,7 +66,7 @@ export const Profile = () => {
 
     return (
         <>
-            <Header/>
+            {/*<Header/>*/}
             <Title title="Профиль"/>
             <div className="content" style={{position: "relative"}}>
 

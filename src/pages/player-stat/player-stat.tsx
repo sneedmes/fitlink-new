@@ -5,7 +5,6 @@ import Modal from '../../components/StatModal/StatModal';
 import { Button } from '../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { User, Statistic } from '../../types/types';
-import Header from "../../components/Header/Header";
 import Title from "../../components/Title/Title";
 import UserCard from "../../components/UserCard/UserCard";
 import { useUserFromStorage } from "../../hooks/useUserFromStorage";
@@ -159,7 +158,7 @@ const PlayerStat = () => {
 
     return (
         <>
-            <Header />
+            {/*<Header />*/}
             <Title title={user.name} />
             <div className='content'>
                 <Button

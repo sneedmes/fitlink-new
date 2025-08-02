@@ -1,12 +1,11 @@
 import React from 'react';
-import Header from "../../components/Header/Header";
 import Title from "../../components/Title/Title";
 
 const TacticalBoard = () => {
 
     return (
         <>
-            <Header />
+            {/*<Header />*/}
             <Title title={'Тактическая доска'}/>
             <div className='content'>
                 <h2><a style={{color: "black", cursor: "pointer", textDecorationLine: "underline", textDecorationColor: "var(--color-active)"}} href="/Board/board.html" target="_blank" rel="noopener noreferrer">

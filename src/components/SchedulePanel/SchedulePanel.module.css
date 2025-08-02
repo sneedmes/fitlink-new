@@ -33,6 +33,7 @@
     font-weight: 700;
     margin-bottom: 4px;
     width: 100%; /* или auto */
+    text-align: center;
 }
 
 .date {
@@ -75,6 +76,7 @@
 
     .dayLabel {
         font-size: 14px;
+        text-align: left;
     }
 
     .date {

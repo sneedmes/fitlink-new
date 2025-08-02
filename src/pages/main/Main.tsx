@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
 import style from './Main.module.css'
-import Header from "../../components/Header/Header";
 import Title from "../../components/Title/Title";
 import ItemLink from "../../assets/materials/main-item.jpg"
 import ItemCode from "../../assets/materials/main-code.png"
@@ -9,12 +8,15 @@ import ItemPlayer from "../../assets/materials/main-player.png"
 import {DayData, EventsTypes, TeamType, User, WorkoutTypes} from "../../types/types";
 import {Button} from "../../components/Button/Button";
 import defaultPhoto from "../../assets/default-profile-photo.png";
-import Statistics from "../statistics/Statistics";
 import run from "../../assets/test/run.png"
 import tech from "../../assets/test/tech.png"
 import shots from "../../assets/test/shots.png"
+import Toast from "../../components/Toast/Toast";
+import {useNavigate} from "react-router-dom";
 
 export const Main = () => {
+    const navigate = useNavigate()
+    const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
     const about = [
         {
             title: 'FitLink – спортивная экосистема будущего',
@@ -107,35 +109,37 @@ export const Main = () => {
 
         // Женские имена и фамилии для 2 тренеров + 15 спортсменок
         const realUsersData = [
-            { name: "Мария", surname: "Черепанова", role: "Тренер" },
-            { name: "Алина", surname: "Якимкина", role: "Тренер" },
+            { name: "Виктория", surname: "Орлова", role: "Тренер" },
+            { name: "Елена", surname: "Баранова", role: "Тренер" },
 
-            { name: "Сусанна", surname: "Даллакян", role: "Спортсмен" },
-            { name: "Екатерина", surname: "Дианова", role: "Спортсмен" },
-            { name: "Екатерина", surname: "Никифорова", role: "Спортсмен" },
-            { name: "Екатерина", surname: "Борсук", role: "Спортсмен" },
-            { name: "Дарья", surname: "Гневнова", role: "Спортсмен" },
-            { name: "Дарья", surname: "Васюхина", role: "Спортсмен" },
-            { name: "Руслана", surname: "Шешунова", role: "Спортсмен" },
-            { name: "Александра", surname: "Лихолетова", role: "Спортсмен" },
-            { name: "Жанна", surname: "Григорьева", role: "Спортсмен" },
-            { name: "Людмила", surname: "Зайка", role: "Спортсмен" },
-            { name: "Алиса", surname: "Юсупова", role: "Спортсмен" },
-            { name: "Милана", surname: "Герасимова", role: "Спортсмен" },
-            { name: "Полина", surname: "Котляева", role: "Спортсмен" },
-            { name: "Ксения", surname: "Попкова", role: "Спортсмен" },
-            { name: "Анастасия", surname: "Ручко", role: "Спортсмен" },
-            { name: "Мария", surname: "Кортунова", role: "Спортсмен" },
-            { name: "Юлия", surname: "Рябова", role: "Спортсмен" },
-            { name: "Милана", surname: "Ахмадеева", role: "Спортсмен" },
+            { name: "София", surname: "Павленко", role: "Спортсмен" },
+            { name: "Анна", surname: "Скворцова", role: "Спортсмен" },
+            { name: "Маргарита", surname: "Калинина", role: "Спортсмен" },
+            { name: "Вероника", surname: "Киселева", role: "Спортсмен" },
+            { name: "Дарина", surname: "Суворова", role: "Спортсмен" },
+            { name: "Таисия", surname: "Голубева", role: "Спортсмен" },
+            { name: "Диана", surname: "Коновалова", role: "Спортсмен" },
+            { name: "Арина", surname: "Шелест", role: "Спортсмен" },
+            { name: "Карина", surname: "Терехова", role: "Спортсмен" },
+            { name: "Валерия", surname: "Горбунова", role: "Спортсмен" },
+            { name: "Ульяна", surname: "Полякова", role: "Спортсмен" },
+            { name: "Ника", surname: "Сидорова", role: "Спортсмен" },
+            { name: "Кристина", surname: "Куликова", role: "Спортсмен" },
+            { name: "Олеся", surname: "Фомина", role: "Спортсмен" },
+            { name: "Яна", surname: "Морозова", role: "Спортсмен" },
+            { name: "Агата", surname: "Петухова", role: "Спортсмен" },
+            { name: "Елизавета", surname: "Тарасова", role: "Спортсмен" },
+            { name: "Василиса", surname: "Руднева", role: "Спортсмен" },
+            { name: "Камила", surname: "Захарова", role: "Спортсмен" },
         ];
 
         const realEvents = [
-            { title: 'Открытие турнира', desc: 'Всем приходить с хорошим настроением!', isPrivate: false },
-            { title: 'Сборы', desc: 'Быть в кипе! Не опаздывать!', isPrivate: true },
-            { title: 'Игра со Спартаком', desc: 'Играем в белой форме! Не забыть фишки и манишки', isPrivate: true },
-            { title: 'Игра со Зенитом', desc: 'Играем в синей форме! Не забыть фишки и манишки', isPrivate: true },
-        ]
+            { title: 'Презентация команды', desc: 'Берите улыбки и форму!', isPrivate: false },
+            { title: 'Закрытая тренировка', desc: 'Без опозданий. Форма: чёрная.', isPrivate: true },
+            { title: 'Товарищеский матч с ЦСКА', desc: 'Играем в красном. Мячи — с собой!', isPrivate: true },
+            { title: 'Финал кубка', desc: 'Будем гореть! Встречаемся за 2 часа до начала.', isPrivate: true },
+        ];
+
 
         realUsersData.forEach((data, index) => {
             const id = index + 1;
@@ -211,17 +215,24 @@ export const Main = () => {
             user.events = [...events];
             user.workouts = [...workouts];
         });
-
+        // setToast({message: "Тестовая программа запущена!", type: "success"});
+        // setTimeout(() => setToast(null), 2000);
         localStorage.setItem("myProject_users", JSON.stringify(users));
         localStorage.setItem("myProject_events", JSON.stringify(events));
         localStorage.setItem("myProject_workouts", JSON.stringify(workouts));
         localStorage.setItem("myProject_teams", JSON.stringify([team]));
+        navigate("/auth")
     };
 
+    const clearLocalStorage = ()=>{
+        localStorage.clear()
+        setToast({message: "Локальное хранилище очищено!", type: "success"});
+        setTimeout(() => setToast(null), 2000);
+    }
 
     return (
         <>
-            <Header/>
+            {/*<Header/>*/}
             <Title title={'Главная'}/>
 
             <div className='content'>
@@ -284,11 +295,12 @@ export const Main = () => {
                         <img src={ItemPlayer} alt=""/></div>
                 </div>
 
-                <div style={{display: 'flex', flexDirection: 'column', gap: 30}}>
+                <div style={{display: 'flex', gap: 30}}>
                     <Button type={'active'} onClick={() => addAll()} isActive={true}
-                            title={'Начать тестовую программу'}/>
-                    <Button type={'player'} onClick={() => localStorage.clear()} isActive={true}
+                            title={'Запустить тестирование'}/>
+                    <Button type={'player'} onClick={() => clearLocalStorage()} isActive={true}
                             title={'Очистить localstorage'}/>
+                    {toast && <Toast message={toast.message} type={toast.type}/>}
                 </div>
             </div>
         </>

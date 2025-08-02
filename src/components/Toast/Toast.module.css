@@ -21,3 +21,11 @@
     90% { opacity: 1; transform: translateX(0); }
     100% { opacity: 0; transform: translateX(100%); }
 }
+
+@media (max-width: 600px) {
+    .toast {
+        bottom: unset;
+        top: 20px;
+        right: 20px;
+    }
+}

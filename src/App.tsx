@@ -15,12 +15,14 @@ import TacticalBoard from "./pages/tactical-board/TacticalBoard";
 import UserPage from "./pages/user-page/user-page";
 import PlayerStat from "./pages/player-stat/player-stat";
 import Statistics from "./pages/statistics/Statistics";
+import Header from "./components/Header/Header";
 
 // var _lsTotal=0,_xLen,_x;for(_x in localStorage){ if(!localStorage.hasOwnProperty(_x)){continue;} _xLen= ((localStorage[_x].length + _x.length)* 2);_lsTotal+=_xLen; console.log(_x.substr(0,50)+" = "+ (_xLen/1024).toFixed(2)+" KB")};console.log("Total = " + (_lsTotal / 1024).toFixed(2) + " KB");
 
 function App() {
     return (
         <Router>
+            <Header/>
             <Routes>
                 <Route path="/" element={<Main/>}/>
                 <Route path="/auth" element={<LoginRegister/>}/>

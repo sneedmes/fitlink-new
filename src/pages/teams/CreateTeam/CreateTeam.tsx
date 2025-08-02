@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from "../../../components/Header/Header";
 import Title from "../../../components/Title/Title";
 import { Button } from "../../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -103,7 +102,7 @@ const CreateTeam = () => {
 
     return (
         <>
-            <Header />
+            {/*<Header />*/}
             <Title title={'Создать команду'} />
             <div className='content'>
                 <div className={style.create_team_container}>

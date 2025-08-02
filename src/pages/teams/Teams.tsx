@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from "../../components/Header/Header";
 import Title from "../../components/Title/Title";
 import style from "./Teams.module.css";
 import { useNavigate } from "react-router-dom";
@@ -205,7 +204,7 @@ const Team = () => {
 
     return (
         <>
-            <Header />
+            {/*<Header />*/}
             <Title title={currentTeam?.name || "Команда"} />
             <div className="content">
                 {(teams.length === 0 || !teamId || !currentTeam) ? (

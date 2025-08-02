@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../context/auth-context";
-import Header from "../../components/Header/Header";
 import Title from "../../components/Title/Title";
 import style from './login-register.module.css'
 import {Button} from "../../components/Button/Button";
@@ -89,7 +88,7 @@ export const LoginRegister = () => {
 
     return (
         <>
-            <Header/>
+            {/*<Header/>*/}
             <Title title={'Регистрация'}/>
 
             <div className='content'>

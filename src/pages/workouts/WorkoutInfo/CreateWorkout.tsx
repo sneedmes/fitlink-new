@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Header from "../../../components/Header/Header";
 import Title from "../../../components/Title/Title";
 import style from "../Workout.module.css";
 import { Button } from "../../../components/Button/Button";
@@ -72,7 +71,7 @@ const CreateWorkout = () => {
 
     return (
         <>
-            <Header />
+            {/*<Header />*/}
             <Title title="Создать тренировку" />
 
             <div className="content">

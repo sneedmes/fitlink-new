@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import style from '../Workout.module.css';
 import { Button } from '../../../components/Button/Button';
-import Header from "../../../components/Header/Header";
 import Title from "../../../components/Title/Title";
 import {ExerciseItem, WorkoutTypes} from '../../../types/types';
 
@@ -81,7 +80,7 @@ const EditWorkout = () => {
 
     return (
         <>
-            <Header />
+            {/*<Header />*/}
             <Title title="Редактировать тренировку" />
             <div className="content">
                 <div className={style.edit_workout}>

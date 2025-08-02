@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import style from '../Events.module.css';
 import { EventsTypes } from '../../../types/types';
 import { Button } from '../../../components/Button/Button';
-import Header from '../../../components/Header/Header';
 import Title from '../../../components/Title/Title';
 
 const EditEvent = () => {
@@ -68,7 +67,7 @@ const EditEvent = () => {
 
     return (
         <>
-            <Header />
+            {/*<Header />*/}
             <Title title="Редактировать событие" />
 
             <div className="content">
