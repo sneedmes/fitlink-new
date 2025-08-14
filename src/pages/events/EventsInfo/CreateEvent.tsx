@@ -33,13 +33,29 @@ const CreateEvent = () => {
             isPrivate,
         };
 
-        const stored = localStorage.getItem('myProject_events'); // поправил ключ
-        const parsed = stored ? JSON.parse(stored) : [];
-        const updated = [...parsed, newEvent];
-        localStorage.setItem('myProject_events', JSON.stringify(updated));
+        // обновляем общий список событий
+        const storedEvents = localStorage.getItem('myProject_events');
+        const events = storedEvents ? JSON.parse(storedEvents) : [];
+        const updatedEvents = [...events, newEvent];
+        localStorage.setItem('myProject_events', JSON.stringify(updatedEvents));
+
+        // обновляем конкретного пользователя
+        const storedUsers = localStorage.getItem('myProject_users');
+        if (storedUsers) {
+            const users = JSON.parse(storedUsers);
+            const userIndex = users.findIndex((u: any) => u.id === currentUserId);
+            if (userIndex !== -1) {
+                users[userIndex].events = [...users[userIndex].events, newEvent];
+                localStorage.setItem('myProject_users', JSON.stringify(users));
+
+                // заодно обновим currentUser в localStorage
+                localStorage.setItem('myProject_currentUser', JSON.stringify(users[userIndex]));
+            }
+        }
 
         navigate('/events');
     };
+
 
 
     return (

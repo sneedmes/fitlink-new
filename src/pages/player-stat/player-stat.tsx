@@ -19,12 +19,12 @@ const PlayerStat = () => {
     const navigate = useNavigate();
     const [user, setUser] = useUserFromStorage();
 
-    type StatArrayField = 'goals' | 'assists' | 'missedBalls';
+    type StatArrayField = 'goals' | 'assists' | 'missedBalls' | 'savedBalls';
     type StatNumberField = 'redCards' | 'yellowCards';
     type StatStringArrayField = 'games';
 
     const isArrayField = (field: keyof Statistic): field is StatArrayField =>
-        ['goals', 'assists', 'missedBalls'].includes(field);
+        ['goals', 'assists', 'missedBalls', 'savedBalls'].includes(field);
     const isNumberField = (field: keyof Statistic): field is StatNumberField =>
         ['redCards', 'yellowCards'].includes(field);
     const isStringArrayField = (field: keyof Statistic): field is StatStringArrayField =>
@@ -218,6 +218,26 @@ const PlayerStat = () => {
                                 else if (index === 1) deleteItem('yellowCards');
                             }}
                         />
+                        {/* Пропущенные мячи */}
+                        <StatCard
+                            title="Пропущенные мячи"
+                            total={sumValues(stat.missedBalls)}
+                            items={stat?.missedBalls?.map(m => ({ label: m.game, value: m.value })) ?? []}
+                            onAdd={() => openAddModal('missedBalls')}
+                            addLabel="Добавить пропущенный мяч"
+                            onEdit={(index) => openEditModal('missedBalls', index)}
+                            onDelete={(index) => deleteItem('missedBalls', index)}
+                        />
+                        {/* Сейвы */}
+                        <StatCard
+                            title="Сейвы"
+                            total={sumValues(stat.savedBalls)}
+                            items={stat?.savedBalls?.map(s => ({ label: s.game, value: s.value })) ?? []}
+                            onAdd={() => openAddModal('savedBalls')}
+                            addLabel="Добавить сейв"
+                            onEdit={(index) => openEditModal('savedBalls', index)}
+                            onDelete={(index) => deleteItem('savedBalls', index)}
+                        />
 
                         {/* Сыгранные матчи */}
                         <StatCard
@@ -257,7 +277,7 @@ const PlayerStat = () => {
                             </label>
                         )}
 
-                        {(editingField === 'goals' || editingField === 'assists' || editingField === 'missedBalls') && (
+                        {(editingField === 'goals' || editingField === 'assists' || editingField === 'missedBalls' || editingField === 'savedBalls') && (
                             <>
                                 <label>
                                     Игра:<br />

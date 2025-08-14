@@ -84,6 +84,7 @@ const UserPage = () => {
                                     <h4>Красные карточки: <span className={styles.label}>{user.statistics?.redCards}</span></h4>
                                     <h4>Желтые карточки: <span className={styles.label}>{user.statistics?.yellowCards}</span></h4>
                                     <h4>Пропущенные мячи: <span className={styles.label}>{user.statistics?.missedBalls?.reduce((sum, item) => sum + item.value, 0) ?? 0}</span></h4>
+                                    <h4>Сейвы: <span className={styles.label}>{user.statistics?.savedBalls?.reduce((sum, item) => sum + item.value, 0) ?? 0}</span></h4>
                                     <h4>Игры: <span className={styles.label}>{user.statistics?.games?.length}</span></h4>
                                 </div>
                                 {currentUser.role === "Тренер" &&
@@ -96,6 +97,35 @@ const UserPage = () => {
 
                     </div>
                 }
+
+                {user.events && user.events.length > 0 && (
+                    <div className={styles.events}>
+                        <h2>События пользователя</h2>
+                        <div className={styles.events_container}>{user.events.map(event => (
+                            <div key={event.id} className={styles.event}>
+                                <div className={styles.event_info}>
+                                    <h2>{event.title}</h2>
+                                    <h3>{event.desc}</h3>
+                                    <h4>{event.date}</h4>
+                                    <h4>{event.time}</h4>
+                                    <h6>
+                                        Для связи:{" "}
+                                        <span style={{color: "var(--color-main)"}}>{user.email}</span>
+                                    </h6>
+                                    <h6>
+                                        <i>
+                                            {event.isPrivate
+                                                ? "Приватное (только команда)"
+                                                : "Публичное (для всех)"}
+                                        </i>
+                                    </h6>
+                                    <h6>Участников: {event.members}</h6>
+                                </div>
+                            </div>
+                        ))}</div>
+                    </div>
+                )}
+
             </div>
         </>
     );

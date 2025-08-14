@@ -9,10 +9,12 @@ const Events = () => {
     const navigate = useNavigate();
     const currentUser = JSON.parse(localStorage.getItem("myProject_currentUser") || "{}")
     const [events, setEvents] = useState<EventsTypes[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
         const storedEvents: EventsTypes[] = JSON.parse(localStorage.getItem("myProject_events") || "[]");
         const users: User[] = JSON.parse(localStorage.getItem("myProject_users") || "[]"); // Загружаем всех юзеров
+        setUsers(users);
 
         const filteredEvents = storedEvents.filter(event => {
             if (!event.isPrivate) return true; // Публичные доступны всем
@@ -29,7 +31,6 @@ const Events = () => {
 
         setEvents(filteredEvents);
     }, []);
-
 
     const handleParticipationToggle = (eventId: number) => {
         const updatedEvents = events.map(event => {
@@ -66,6 +67,7 @@ const Events = () => {
                         {events.length > 0 ? (
                             events.map((event) => {
                                 const hasJoined = event.joinedUsers?.includes(currentUser.id);
+                                const creator = users.find(u => u.id === event.userId);
                                 return (
                                     <div key={event.id} className={style.event}>
                                         <div className={style.event_info}>
@@ -73,6 +75,7 @@ const Events = () => {
                                             <h3>{event.desc}</h3>
                                             <h4>{event.date}</h4>
                                             <h4>{event.time}</h4>
+                                            <h6>Для связи напишите на почту: <span style={{color: "var(--color-main)"}}>{creator?.email}</span></h6>
                                             <h6>
                                                 <i>{event.isPrivate ? 'Приватное (только команда)' : 'Публичное (для всех)'}</i>
                                             </h6>

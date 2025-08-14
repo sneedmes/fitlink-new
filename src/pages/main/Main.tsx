@@ -100,7 +100,7 @@ export const Main = () => {
         const team: TeamType = {
             userId: 1,
             id: teamId,
-            name: "ЖФК Крылья Советов - М",
+            name: "ЖФК Фитлинк",
             img: defaultPhoto,
             schedule: getCurrentWeekSchedule(),
             members: [],
@@ -212,8 +212,8 @@ export const Main = () => {
         }
 
         users.forEach(user => {
-            user.events = [...events];
-            user.workouts = [...workouts];
+            user.events = events.filter(e => e.userId === user.id);
+            user.workouts = workouts.filter(w => w.userId === user.id);
         });
         // setToast({message: "Тестовая программа запущена!", type: "success"});
         // setTimeout(() => setToast(null), 2000);
@@ -299,7 +299,7 @@ export const Main = () => {
                     <Button type={'active'} onClick={() => addAll()} isActive={true}
                             title={'Запустить тестирование'}/>
                     <Button type={'player'} onClick={() => clearLocalStorage()} isActive={true}
-                            title={'Очистить localstorage'}/>
+                            title={'Очистить базу пользователей'}/>
                     {toast && <Toast message={toast.message} type={toast.type}/>}
                 </div>
             </div>

@@ -29,6 +29,10 @@ export interface Statistic {
         game: string,
         value: number
     }[],
+    savedBalls?: {
+        game: string,
+        value: number
+    }[],
     games?: string[];
     attendance?: {
         [date: string]: boolean

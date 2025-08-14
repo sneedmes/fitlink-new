@@ -20,6 +20,8 @@ const AttendanceCalendar: React.FC<AttendanceCalendarProps> = ({player, onChange
         player.statistics?.attendance || {}
     );
 
+    const daysOfWeek = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"]; // начиная с воскресенья
+
     useEffect(() => {
         onChange(attendance);
     }, [attendance, onChange]);
@@ -37,6 +39,9 @@ const AttendanceCalendar: React.FC<AttendanceCalendarProps> = ({player, onChange
     return (
 
         <div className={styles.grid}>
+            {daysOfWeek.map((d)=>
+                <h4 style={{textAlign: "center", marginBottom: 10}}>{d}</h4>
+            )}
             {/* Пустые ячейки перед 1 числом */}
             {[...Array((new Date(year, month, 1).getDay() || 7) - 1)].map((_, i) => (
                 <div key={`empty-${i}`} className={styles.empty}></div>

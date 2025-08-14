@@ -78,6 +78,18 @@ const Statistics = () => {
                                         {label: 'Жёлтые', value: stat.yellowCards ?? 0}
                                     ]}
                                 />
+                                {/* Пропущенные мячи */}
+                                <StatCard
+                                    title="Пропущенные мячи"
+                                    total={sumValues(stat.missedBalls)}
+                                    items={stat?.missedBalls?.map(a => ({label: a.game, value: a.value})) ?? []}
+                                />
+                                {/* Сейвы */}
+                                <StatCard
+                                    title="Сейвы"
+                                    total={sumValues(stat.savedBalls)}
+                                    items={stat?.savedBalls?.map(a => ({label: a.game, value: a.value})) ?? []}
+                                />
 
                                 {/* Сыгранные матчи */}
                                 <StatCard

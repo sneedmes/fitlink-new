@@ -15,7 +15,6 @@ interface Props {
 
 const daysOfWeek = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]; // начиная с воскресенья
 
-
 export const SchedulePanel: React.FC<Props> = ({ team, updateSchedule }) => {
     const [schedule, setSchedule] = useState<DayData[]>([]);
     const currentUser: User = JSON.parse(localStorage.getItem("myProject_currentUser") || "{}");
